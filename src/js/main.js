@@ -1,24 +1,5 @@
 // JS for links.html and options.html
 
-import { showToast } from './export.js'
-
-if (typeof ClipboardJS !== 'undefined') {
-    const clipboard = new ClipboardJS('.clip')
-    clipboard.on('success', function (event) {
-        // console.debug('clipboard.success:', event)
-        const text = event.text.trim()
-        console.debug(`text: "${text}"`)
-        if (event.trigger.dataset.toast) {
-            showToast(event.trigger.dataset.toast)
-        } else {
-            showToast('Copied to Clipboard')
-        }
-    })
-    clipboard.on('error', function () {
-        showToast('Clipboard Copy Failed', 'warning')
-    })
-}
-
 const backToTop = document.getElementById('back-to-top')
 if (backToTop) {
     window.addEventListener('scroll', debounce(onScroll))

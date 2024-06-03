@@ -7,8 +7,6 @@
   "version": "0.0.1",
   "manifest_version": 3,
   "permissions": [
-    "activeTab",
-    "clipboardWrite",
     "contextMenus",
     "nativeMessaging",
     "notifications",
