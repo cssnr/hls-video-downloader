@@ -1,0 +1,58 @@
+{
+  "name": "HLS Video Downloader",
+  "short_name": "HLS Download",
+  "description": "HLS Video Downloader Web Extension with Native Application using FFmpeg.",
+  "homepage_url": "https://github.com/cssnr/hls-video-downloader",
+  "author": "Shane",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "contextMenus",
+    "nativeMessaging",
+    "notifications",
+    "scripting",
+    "storage",
+    "webRequest"
+  ],
+  "host_permissions": ["*://*/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["js/content-script.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": { "type": "module" },
+  "options_ui": {
+    "page": "html/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+A"
+      },
+      "description": "Show Main Popup Action"
+    }
+  },
+  "action": {
+    "default_popup": "html/popup.html",
+    "default_title": "HLS Video Downloader",
+    "default_icon": {
+      "16": "images/logo16.png",
+      "32": "images/logo32.png",
+      "48": "images/logo48.png",
+      "96": "images/logo96.png",
+      "128": "images/logo128.png"
+    }
+  },
+  "icons": {
+    "16": "images/logo16.png",
+    "32": "images/logo32.png",
+    "48": "images/logo48.png",
+    "96": "images/logo96.png",
+    "128": "images/logo128.png"
+  }
+}

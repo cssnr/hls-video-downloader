@@ -1,0 +1,15 @@
+/* CSS for popup.html */
+
+body {
+    width: 360px;
+    overflow-x: hidden;
+}
+
+input::placeholder {
+    text-align: center;
+}
+
+#content-wrapper {
+    max-height: 380px;
+    overflow-y: auto;
+}
