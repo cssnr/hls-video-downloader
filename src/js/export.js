@@ -1,6 +1,6 @@
 // JS Exports
 
-export const nativeApp = 'com.cssnr.extension.python'
+export const nativeApp = 'org.cssnr.hls.downloader'
 
 /**
  * Save Options Callback
