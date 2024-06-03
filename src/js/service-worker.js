@@ -264,7 +264,10 @@ async function setDefaultOptions(defaultOptions) {
  */
 async function onCompleted(details) {
     // console.log('onCompleted:', details)
-    if (details.documentUrl.startsWith('moz-extension')) {
+    if (
+        details.documentUrl?.startsWith('moz-extension') ||
+        details.initiator?.startsWith('chrome-extension')
+    ) {
         return
     }
     if (details.url.endsWith('.m3u8')) {
