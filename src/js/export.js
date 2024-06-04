@@ -285,3 +285,22 @@ export async function sendNotification(title, text, id = '', timeout = 30) {
         }, timeout * 1000)
     })
 }
+
+/**
+ * Test Native Message and Show Toast
+ * TODO: Refactor this function to be more portable
+ * @function testNativeMessage
+ * @return {Boolean}
+ */
+export async function testNativeMessage() {
+    try {
+        console.debug('testNativeMessage')
+        const msg = { message: 'Test' }
+        const response = await chrome.runtime.sendNativeMessage(nativeApp, msg)
+        console.log('response:', response)
+        showToast(response.message)
+    } catch (e) {
+        console.log(e)
+        showToast(e.toString(), 'warning')
+    }
+}
