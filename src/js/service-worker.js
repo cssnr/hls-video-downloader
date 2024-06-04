@@ -61,6 +61,16 @@ async function onInstalled(details) {
             const url = chrome.runtime.getURL('/html/permissions.html')
             await chrome.tabs.create({ active: true, url })
         }
+        try {
+            const response = await chrome.runtime.sendNativeMessage(nativeApp, {
+                message: 'Test',
+            })
+            console.log('response:', response)
+        } catch (e) {
+            console.log(e)
+            const url = chrome.runtime.getURL('/html/client.html')
+            await chrome.tabs.create({ active: true, url })
+        }
     } else if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
         if (options.showUpdate) {
             const manifest = chrome.runtime.getManifest()
@@ -147,7 +157,7 @@ function onMessage(message, sender, sendResponse) {
                     }
                 })
         } catch (e) {
-            console.warn(e)
+            console.log(e)
         }
     }
 }
@@ -192,7 +202,7 @@ async function notificationsClicked(notificationId) {
         )
         console.log('response:', response)
     } catch (e) {
-        console.warn(e)
+        console.log(e)
     }
 }
 
@@ -289,7 +299,7 @@ async function onCompleted(details) {
                 console.debug('not #EXTM3U')
             }
         } catch (e) {
-            console.warn(e)
+            console.log(e)
         }
     }
     // } else if (details.url.endsWith('.mp4')) {

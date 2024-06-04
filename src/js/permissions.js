@@ -1,4 +1,6 @@
 // JS for permissions.html
+// TODO: Decommission permissions after Firefox updates
+//       Release on July 9 and ESR on October 1
 
 import { checkPerms, grantPerms, linkClick, onRemoved } from './export.js'
 

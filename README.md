@@ -10,10 +10,6 @@
 
 Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos using Native FFmpeg.
 
-> [!IMPORTANT]  
-> This web extension requires a client app to use native FFmpeg.  
-> https://github.com/cssnr/hls-downloader-client
-
 *   [Install](#install)
 *   [Features](#features)
 *   [Configuration](#configuration)
@@ -35,6 +31,14 @@ Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos usi
 
 All **Chromium** Based Browsers can install the extension from the
 [Chrome Web Store](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo).
+
+> [!IMPORTANT]  
+> This web extension requires a client app to use native FFmpeg.  
+> https://github.com/cssnr/hls-downloader-client
+
+- Windows: [install-win.exe](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-win.exe)
+- Linux: [install-linux.deb](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-linux.deb)
+- macOS: [install-macos.pkg](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-macos.pkg)
 
 # Features
 

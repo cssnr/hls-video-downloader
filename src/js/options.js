@@ -4,12 +4,11 @@ import {
     checkPerms,
     grantPerms,
     linkClick,
-    nativeApp,
     onAdded,
     onRemoved,
     revokePerms,
     saveOptions,
-    showToast,
+    testNativeMessage,
     updateManifest,
     updateOptions,
 } from './export.js'
@@ -35,25 +34,11 @@ document
     .getElementById('options-form')
     .addEventListener('submit', (e) => e.preventDefault())
 document
+    .querySelectorAll('.native-message')
+    .forEach((el) => el.addEventListener('click', testNativeMessage))
+document
     .querySelectorAll('[data-bs-toggle="tooltip"]')
     .forEach((el) => new bootstrap.Tooltip(el))
-
-document
-    .querySelectorAll('.native-message')
-    .forEach((el) => el.addEventListener('click', sendNativeMessage))
-
-async function sendNativeMessage() {
-    try {
-        console.debug('sendNativeMessage')
-        const msg = { message: 'Test from Web Extension' }
-        const response = await chrome.runtime.sendNativeMessage(nativeApp, msg)
-        console.log('response:', response)
-        showToast(response.message)
-    } catch (e) {
-        console.warn(e)
-        showToast(e.toString(), 'warning')
-    }
-}
 
 /**
  * Initialize Options

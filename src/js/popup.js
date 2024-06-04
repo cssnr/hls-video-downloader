@@ -8,6 +8,7 @@ import {
     showToast,
     updateOptions,
     updateManifest,
+    nativeApp,
 } from './export.js'
 
 chrome.storage.onChanged.addListener(onChanged)
@@ -58,6 +59,18 @@ async function initPopup() {
     } else {
         hostDiv.querySelector('kbd').textContent = url.hostname
         hostDiv.classList.add('border-success-subtle')
+    }
+
+    // Native Permissions
+    // TODO: Refactor this to use portable function from exports
+    try {
+        console.debug('sendNativeMessage')
+        const msg = { message: 'Test' }
+        const response = await chrome.runtime.sendNativeMessage(nativeApp, msg)
+        console.log('response:', response)
+    } catch (e) {
+        console.log(e)
+        document.getElementById('error-wrapper').classList.remove('d-none')
     }
 
     // Active Downloads
