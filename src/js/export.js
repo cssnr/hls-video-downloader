@@ -219,7 +219,7 @@ export async function revokePerms(event) {
         await checkPerms()
     } catch (e) {
         console.log(e)
-        showToast(e.toString(), 'danger')
+        showToast(e.message, 'danger')
     }
 }
 
@@ -290,20 +290,21 @@ export async function sendNotification(title, text, id = '', timeout = 30) {
  * Test Native Message and Show Toast
  * TODO: Refactor this function to be more portable
  * @function testNativeMessage
- * @param {Boolean} [toast]
+ * @param {Event} [e]
+ * @param {String} [toast]
  * @return {Boolean}
  */
-export async function testNativeMessage(toast = true) {
+export async function testNativeMessage(e, toast = 'all') {
     try {
-        console.debug('testNativeMessage')
+        console.debug('testNativeMessage:', toast)
         const msg = { message: 'Test' }
         const response = await chrome.runtime.sendNativeMessage(nativeApp, msg)
         console.log('response:', response)
-        if (toast) showToast(response.message)
+        if (['all', 'success'].includes(toast)) showToast(response.message)
         return true
     } catch (e) {
         console.log(e)
-        if (toast) showToast(e.toString(), 'warning')
+        if (['all', 'error'].includes(toast)) showToast(e.message, 'warning')
         return false
     }
 }

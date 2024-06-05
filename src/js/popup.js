@@ -62,7 +62,7 @@ async function initPopup() {
     }
 
     // Native Permissions
-    if (!(await testNativeMessage(false))) {
+    if (!(await testNativeMessage(null, 'none'))) {
         document.getElementById('error-wrapper').classList.remove('d-none')
     }
 
@@ -155,7 +155,7 @@ async function downloadMedia(event) {
     console.debug('downloadMedia:', event)
     const url = event.target.dataset.url
     console.debug('url:', url)
-    if (!(await testNativeMessage())) {
+    if (!(await testNativeMessage(null, 'error'))) {
         return
     }
     event.target.classList.add('disabled')
