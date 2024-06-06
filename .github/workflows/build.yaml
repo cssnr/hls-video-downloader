@@ -48,3 +48,10 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
+
+      - name: "VirusTotal"
+        uses: cssnr/virustotal-action@v1
+        if: ${{ github.event_name == 'release' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          vt_api_key: ${{ secrets.VT_API_KEY }}
