@@ -119,11 +119,11 @@ async function onClicked(ctx, tab) {
 function onMessage(message, sender, sendResponse) {
     console.debug('onMessage: message, sender:', message, sender)
     // console.debug('tabId:', message.tabId || sender.tab?.id)
-    if (message.badgeText) {
+    if (typeof message.badgeText === 'string') {
         console.debug('message.badgeText:', message.badgeText)
         chrome.action.setBadgeText({
             tabId: message.tabId || sender.tab.id,
-            text: message.badgeText.toString(),
+            text: message.badgeText,
         })
     }
     if (message.badgeColor) {
@@ -250,6 +250,11 @@ function addContext(context) {
  */
 async function setDefaultOptions(defaultOptions) {
     console.log('setDefaultOptions', defaultOptions)
+    // let { downloaded } = await chrome.storage.local.get(['downloaded'])
+    // if (!downloaded) {
+    //     downloaded = []
+    //     await chrome.storage.local.set({ downloaded })
+    // }
     let { options } = await chrome.storage.sync.get(['options'])
     options = options || {}
     let changed = false

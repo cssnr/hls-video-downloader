@@ -70,20 +70,20 @@ async function initPopup() {
     const downloads = await chrome.runtime.sendMessage('getDownloads')
     console.log('downloads:', downloads)
     if (downloads.length) {
-        processDownloads(downloads)
+        await processDownloads(downloads)
     }
 
     // Available Downloads
     console.log('tab:', tab.id)
     try {
         const urls = await chrome.tabs.sendMessage(tab.id, 'getURLs')
-        processURLs(urls, downloads)
+        await processURLs(urls, downloads)
     } catch (e) {
         console.debug(e)
     }
 }
 
-function processDownloads(downloads) {
+async function processDownloads(downloads) {
     console.log('processDownloads:', downloads)
     downloadsWrapper.classList.remove('d-none')
     for (const link of downloads) {
@@ -101,7 +101,7 @@ function processDownloads(downloads) {
     div.textContent = `Active Downloads: ${downloads.length}`
 }
 
-function processURLs(urls, downloads) {
+async function processURLs(urls, downloads) {
     console.log('urls:', urls, downloads)
     mediaWrapper.classList.remove('d-none')
     if (!urls?.length) {
@@ -109,17 +109,22 @@ function processURLs(urls, downloads) {
     }
     mediaWrapper.classList.add('border-success')
 
+    // const { downloaded } = await chrome.storage.local.get(['downloaded'])
     let extra = 0
     let available = 0
     for (const data of urls) {
+        // if (downloaded.includes(data.url)) {
+        //     console.debug('already downloaded:', data.url)
+        //     continue
+        // }
+        if (downloads.includes(data.url)) {
+            console.log('currently downloading:', data.url)
+            continue
+        }
         extra += data.urls.length
         console.log('data:', data)
-        if (downloads.includes(data.url)) {
-            console.log('url being downloaded:', data.url)
-        } else {
-            addLink(data.url)
-            available += 1
-        }
+        addLink(data.url)
+        available += 1
     }
     const div = document.getElementById('media-text')
     div.textContent = `Found ${available} videos with ${extra} extra links:`
@@ -159,6 +164,14 @@ async function downloadMedia(event) {
         return
     }
     event.target.classList.add('disabled')
+    // const { downloaded } = await chrome.storage.local.get(['downloaded'])
+    // downloaded.push(url)
+    // await chrome.storage.local.set({ downloaded })
+    const [tab] = await chrome.tabs.query({
+        currentWindow: true,
+        active: true,
+    })
+    await chrome.tabs.sendMessage(tab.id, { download: url })
     await chrome.runtime.sendMessage({ download: url })
     showToast('Download Started.')
 }
