@@ -8,7 +8,7 @@ import {
     showToast,
     updateOptions,
     updateManifest,
-    nativeApp,
+    testNativeMessage,
 } from './export.js'
 
 chrome.storage.onChanged.addListener(onChanged)
@@ -62,14 +62,7 @@ async function initPopup() {
     }
 
     // Native Permissions
-    // TODO: Refactor this to use portable function from exports
-    try {
-        console.debug('sendNativeMessage')
-        const msg = { message: 'Test' }
-        const response = await chrome.runtime.sendNativeMessage(nativeApp, msg)
-        console.log('response:', response)
-    } catch (e) {
-        console.log(e)
+    if (!(await testNativeMessage(null, 'none'))) {
         document.getElementById('error-wrapper').classList.remove('d-none')
     }
 
@@ -162,6 +155,9 @@ async function downloadMedia(event) {
     console.debug('downloadMedia:', event)
     const url = event.target.dataset.url
     console.debug('url:', url)
+    if (!(await testNativeMessage(null, 'error'))) {
+        return
+    }
     event.target.classList.add('disabled')
     await chrome.runtime.sendMessage({ download: url })
     showToast('Download Started.')
