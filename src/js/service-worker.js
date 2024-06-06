@@ -119,14 +119,14 @@ async function onClicked(ctx, tab) {
 function onMessage(message, sender, sendResponse) {
     console.debug('onMessage: message, sender:', message, sender)
     // console.debug('tabId:', message.tabId || sender.tab?.id)
-    if (typeof message.badgeText !== 'undefined') {
+    if (typeof message.badgeText === 'string') {
         console.debug('message.badgeText:', message.badgeText)
         chrome.action.setBadgeText({
             tabId: message.tabId || sender.tab.id,
-            text: message.badgeText.toString(),
+            text: message.badgeText,
         })
     }
-    if (typeof message.badgeColor !== 'undefined') {
+    if (message.badgeColor) {
         console.debug('message.badgeColor:', message.badgeColor)
         chrome.action.setBadgeBackgroundColor({
             tabId: message.tabId || sender.tab.id,
