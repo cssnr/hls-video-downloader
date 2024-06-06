@@ -5,6 +5,7 @@ console.info('HLS Video Downloader - RUNNING content-script.js')
 chrome.runtime.onMessage.addListener(onMessage)
 
 let urls = []
+// let downloaded = []
 
 /**
  * On Message Callback
@@ -16,11 +17,28 @@ let urls = []
  */
 function onMessage(message, sender, sendResponse) {
     console.debug('onMessage:', message, sender)
-    if (message.url) {
+    if (message.download) {
+        console.debug('downloaded url:', message.download)
+        // const index = urls.indexOf(message.download)
+        const index = urls.findIndex((x) => x.url === message.download)
+        console.debug('urls:', urls)
+        console.debug('index:', index)
+        if (index !== -1) {
+            urls.splice(index, 1)
+            // downloaded.push(message.download)
+            console.debug('urls.length:', urls.length)
+            console.debug('text:', urls.length ? urls.length.toString() : '')
+            console.debug('color:', urls.length ? 'yellow' : null)
+            chrome.runtime.sendMessage({
+                badgeText: urls.length ? urls.length.toString() : '',
+                badgeColor: urls.length ? 'yellow' : null,
+            })
+        }
+    } else if (message.url) {
         urls.push(message)
         console.debug('push urls:', urls)
         chrome.runtime.sendMessage({
-            badgeText: urls.length,
+            badgeText: urls.length.toString(),
             badgeColor: 'yellow',
         })
     } else if (message === 'getURLs') {
