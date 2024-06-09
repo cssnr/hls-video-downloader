@@ -50,20 +50,28 @@ const termSplits = ['ext_tw_video', 'amplify_video']
 
 function addUrl(message) {
     console.debug('+++++ addUrl:', message)
+    let id
     for (const term of termSplits) {
         if (message.url.includes(term)) {
-            const id = message.url.split(`${term}/`)[1].split('/', 1)[0]
+            id = message.url.split(`${term}/`)[1].split('/', 1)[0]
             console.log('id:', id)
-            for (const url of urls) {
-                console.log('url:', url.url)
-                if (url.url.includes(id)) {
-                    console.log('combining urls:', url.url, message.url)
-                    url.extra = message.url
-                    return
-                }
-            }
+            break
         }
     }
+
+    for (const url of urls) {
+        console.log('url:', url)
+        if (url.url === message.url || url.extra === message.url) {
+            console.log('skipping exiting url:', message.url)
+            return
+        }
+        if (id && url.url.includes(id)) {
+            console.log('combining urls:', url.url, message.url)
+            url.extra = message.url
+            return
+        }
+    }
+
     urls.push(message)
     console.debug('push urls:', urls)
 }
