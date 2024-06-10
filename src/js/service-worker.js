@@ -140,10 +140,10 @@ function onMessage(message, sender, sendResponse) {
     if (message.download) {
         console.log('download:', message.download)
         try {
-            const msg = { download: message.download }
+            // const msg = { download: message.download }
             activeDownloads.push(message.download)
             chrome.runtime
-                .sendNativeMessage(nativeApp, msg)
+                .sendNativeMessage(nativeApp, message)
                 .then((response) => {
                     console.log('response:', response)
                     sendNotification(
@@ -293,7 +293,10 @@ async function onCompleted(details) {
             const text = await response.text()
             // console.debug('text:', text)
             if (text.startsWith('#EXTM3U')) {
-                await processPlaylist(details, text)
+                const message = { url: details.url }
+                await chrome.tabs.sendMessage(details.tabId, message)
+                // await processPlaylist(details, text)
+
                 // const regex = /^#EXTINF:/m
                 // if (!regex.test(text)) {
                 //     await processPlaylist(details, text)
@@ -312,29 +315,29 @@ async function onCompleted(details) {
     // }
 }
 
-/**
- * @function processPlaylist
- * @param {Object} details
- * @param {String} text
- */
-async function processPlaylist(details, text) {
-    console.log('playlist:', details)
-    const lines = text.split('\n')
-    // console.debug('lines:', lines)
-    const urls = []
-    for (const line of lines) {
-        if (!line || line.startsWith('#') || !line.endsWith('.m3u8')) {
-            continue
-        }
-        const url = new URL(line, details.url)
-        urls.push(url.href)
-        // console.debug('url:', url.href)
-    }
-    // console.debug('urls:', urls)
-    const message = {
-        urls: urls,
-        url: details.url,
-    }
-    console.log('sendMessage:', message)
-    await chrome.tabs.sendMessage(details.tabId, message)
-}
+// /**
+//  * @function processPlaylist
+//  * @param {Object} details
+//  * @param {String} text
+//  */
+// async function processPlaylist(details, text) {
+//     console.log('playlist:', details)
+//     const lines = text.split('\n')
+//     // console.debug('lines:', lines)
+//     const urls = []
+//     for (const line of lines) {
+//         if (!line || line.startsWith('#') || !line.endsWith('.m3u8')) {
+//             continue
+//         }
+//         const url = new URL(line, details.url)
+//         urls.push(url.href)
+//         // console.debug('url:', url.href)
+//     }
+//     // console.debug('urls:', urls)
+//     const message = {
+//         urls: urls,
+//         url: details.url,
+//     }
+//     console.log('sendMessage:', message)
+//     await chrome.tabs.sendMessage(details.tabId, message)
+// }

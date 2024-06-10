@@ -1,6 +1,6 @@
 // JS Content Script
 
-console.info('HLS Video Downloader - RUNNING content-script.js')
+// console.info('HLS Video Downloader - RUNNING content-script.js')
 
 chrome.runtime.onMessage.addListener(onMessage)
 
@@ -35,8 +35,7 @@ function onMessage(message, sender, sendResponse) {
             })
         }
     } else if (message.url) {
-        urls.push(message)
-        console.debug('push urls:', urls)
+        addUrl(message)
         chrome.runtime.sendMessage({
             badgeText: urls.length.toString(),
             badgeColor: 'yellow',
@@ -45,4 +44,34 @@ function onMessage(message, sender, sendResponse) {
         console.debug(`return urls: ${urls.length}`, urls)
         sendResponse(urls)
     }
+}
+
+const termSplits = ['ext_tw_video', 'amplify_video']
+
+function addUrl(message) {
+    console.debug('addUrl:', message)
+    let id
+    for (const term of termSplits) {
+        if (message.url.includes(term)) {
+            id = message.url.split(`${term}/`)[1].split('/', 1)[0]
+            console.log('id:', id)
+            break
+        }
+    }
+
+    for (const url of urls) {
+        console.log('url:', url)
+        if (url.url === message.url || url.extra === message.url) {
+            console.log('skipping exiting url:', message.url)
+            return
+        }
+        if (id && url.url.includes(id)) {
+            console.log('combining urls:', url.url, message.url)
+            url.extra = message.url
+            return
+        }
+    }
+
+    urls.push(message)
+    console.debug('push urls:', urls)
 }

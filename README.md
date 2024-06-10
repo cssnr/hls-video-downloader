@@ -3,15 +3,17 @@
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/mpmiiaolodhanoalpjncddpmnkbjicbo?label=chrome&logo=googlechrome)](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
 [![Mozilla Add-on Version](https://img.shields.io/amo/v/hls-video-downloader?label=firefox&logo=firefox)](https://addons.mozilla.org/addon/hls-video-downloader)
 [![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/hls-video-downloader?logo=github)](https://github.com/cssnr/hls-video-downloader/releases/latest)
-[![Manifest Version](https://img.shields.io/github/manifest-json/v/cssnr/hls-video-downloader?filename=manifest.json&logo=json&label=manifest)](https://github.com/cssnr/hls-video-downloader/blob/master/manifest.json)
 [![Build](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml/badge.svg)](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cssnr_hls-video-downloader&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cssnr_hls-video-downloader)
 # HLS Video Downloader
 
 Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos using Native FFmpeg.
 
+This Web Extension is a Work in Progress, may contain bugs or not work as expected.
+
 *   [Install](#install)
 *   [Features](#features)
+    -   [Known Issues](#known-issues)
 *   [Configuration](#configuration)
 *   [Development](#development)
     -   [Building](#building)
@@ -32,7 +34,7 @@ Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos usi
 All **Chromium** Based Browsers can install the extension from the
 [Chrome Web Store](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo).
 
-> [!IMPORTANT]  
+> [!WARNING]
 > This web extension requires a client app to use native FFmpeg.  
 > Source: https://github.com/cssnr/hls-downloader-client  
 > 
@@ -42,8 +44,27 @@ All **Chromium** Based Browsers can install the extension from the
 
 # Features
 
-Please submit a [Feature Request](https://github.com/cssnr/hls-video-downloader/discussions/categories/feature-requests) for new features.  
-For any issues, bugs or concerns; please [Open an Issue](https://github.com/cssnr/hls-video-downloader/issues).
+- Download `*.m3u8` videos using a native [ffmpeg application](https://github.com/cssnr/hls-downloader-client).
+- Shows the total number of streams found on the toolbar icon.
+- Sends a notification when complete you can click on to open the download folder.
+
+## Known Issues
+
+- Streams with separate video and audio will show up as 2 downloads.
+- Stream quality display is not yet accurate.
+- Error handling and messages needs improving.
+
+> [!TIP]
+> **Don't see your issue here?**
+> Open one on the [Issues](https://github.com/cssnr/hls-video-downloader/issues).
+
+## Upcoming Features
+
+- Playlist parsing to display correct qualities and combine audio/video.
+
+> [!TIP]
+> **Don't see your feature here?**
+> Request one on the [Feature Request Discussion](https://github.com/cssnr/hls-video-downloader/discussions/categories/feature-requests).
 
 # Configuration
 

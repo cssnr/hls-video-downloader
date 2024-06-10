@@ -102,7 +102,7 @@ async function processDownloads(downloads) {
 }
 
 async function processURLs(urls, downloads) {
-    console.log('urls:', urls, downloads)
+    console.log('processURLs:', urls, downloads)
     mediaWrapper.classList.remove('d-none')
     if (!urls?.length) {
         return console.debug('no urls')
@@ -110,7 +110,7 @@ async function processURLs(urls, downloads) {
     mediaWrapper.classList.add('border-success')
 
     // const { downloaded } = await chrome.storage.local.get(['downloaded'])
-    let extra = 0
+    // let extra = 0
     let available = 0
     for (const data of urls) {
         // if (downloaded.includes(data.url)) {
@@ -121,22 +121,22 @@ async function processURLs(urls, downloads) {
             console.log('currently downloading:', data.url)
             continue
         }
-        extra += data.urls.length
+        // extra += data.urls.length
         console.log('data:', data)
-        addLink(data.url)
+        addLink(data)
         available += 1
     }
     const div = document.getElementById('media-text')
-    div.textContent = `Found ${available} videos with ${extra} extra links:`
+    div.textContent = `Found ${available} videos:`
 }
 
 /**
  * Append Link
  * @function addLink
- * @param {String} link
+ * @param {Object} data
  */
-function addLink(link) {
-    const url = new URL(link)
+function addLink(data) {
+    const url = new URL(data.url)
     const div = document.createElement('div')
     div.style.overflow = 'hidden'
     div.classList.add('text-nowrap', 'pb-1')
@@ -144,12 +144,24 @@ function addLink(link) {
     btn.classList.add('me-2')
     btn.textContent = 'Download'
     btn.dataset.url = url.href
+    if (data.extra) {
+        btn.dataset.extra = data.extra
+    }
     btn.addEventListener('click', downloadMedia)
     div.appendChild(btn)
     const a = document.createElement('a')
     a.href = url.href
     a.title = url.href
-    a.textContent = url.pathname.substring(1)
+    if (data.extra) {
+        a.title = `${a.title} + ${data.extra}`
+    }
+    const qualities = ['240', '360', '480', '720']
+    const parsed = qualities.find((quality) => url.href.includes(quality))
+    if (parsed) {
+        // a.textContent = `${parsed}p - `
+        div.appendChild(document.createTextNode(`${parsed}p `))
+    }
+    a.textContent += url.pathname.substring(1)
     a.target = '_blank'
     a.classList.add('text-nowrap')
     div.appendChild(a)
@@ -160,6 +172,8 @@ async function downloadMedia(event) {
     console.debug('downloadMedia:', event)
     const url = event.target.dataset.url
     console.debug('url:', url)
+    const extra = event.target.dataset.extra
+    console.debug('extra:', extra)
     if (!(await testNativeMessage(null, 'error'))) {
         return
     }
@@ -172,7 +186,7 @@ async function downloadMedia(event) {
         active: true,
     })
     await chrome.tabs.sendMessage(tab.id, { download: url })
-    await chrome.runtime.sendMessage({ download: url })
+    await chrome.runtime.sendMessage({ download: url, extra: extra })
     showToast('Download Started.')
 }
 
