@@ -144,21 +144,23 @@ function onMessage(message, sender, sendResponse) {
             activeDownloads.push(message.download)
             chrome.runtime
                 .sendNativeMessage(nativeApp, message)
-                .then((response) => {
-                    console.log('response:', response)
-                    sendNotification(
-                        'Download Complete.',
-                        response.path,
-                        response.path
-                    )
-                    const index = activeDownloads.indexOf(message.download)
-                    if (index !== -1) {
-                        activeDownloads.splice(index, 1)
-                    }
-                })
+                .then((response) => downloadResponse(response, message))
         } catch (e) {
             console.log(e)
         }
+    }
+}
+
+function downloadResponse(response, message) {
+    console.log('response, message:', response, message)
+    const index = activeDownloads.indexOf(message.download)
+    if (index !== -1) {
+        activeDownloads.splice(index, 1)
+    }
+    if (response.success) {
+        sendNotification('Download Complete', response.path, response.path)
+    } else {
+        sendNotification('Download Error', response.message)
     }
 }
 
@@ -193,6 +195,11 @@ function onChanged(changes, namespace) {
 async function notificationsClicked(notificationId) {
     console.debug('notifications.onClicked:', notificationId)
     chrome.notifications.clear(notificationId)
+    const uuidRegex =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    if (!isNaN(parseInt(notificationId)) || uuidRegex.test(notificationId)) {
+        return console.log('normal notification')
+    }
     const message = { open: notificationId }
     console.log('message:', message)
     try {
