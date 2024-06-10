@@ -1,6 +1,6 @@
 // JS Content Script
 
-console.info('HLS Video Downloader - RUNNING content-script.js')
+// console.info('HLS Video Downloader - RUNNING content-script.js')
 
 chrome.runtime.onMessage.addListener(onMessage)
 
@@ -49,7 +49,7 @@ function onMessage(message, sender, sendResponse) {
 const termSplits = ['ext_tw_video', 'amplify_video']
 
 function addUrl(message) {
-    console.debug('+++++ addUrl:', message)
+    console.debug('addUrl:', message)
     let id
     for (const term of termSplits) {
         if (message.url.includes(term)) {
