@@ -4,7 +4,7 @@
   "description": "HLS Video Downloader Web Extension with Native Application using FFmpeg.",
   "homepage_url": "https://github.com/cssnr/hls-video-downloader",
   "author": "Shane",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "manifest_version": 3,
   "permissions": [
     "contextMenus",
