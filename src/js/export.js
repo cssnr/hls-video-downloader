@@ -325,12 +325,14 @@ export async function checkClientVersion() {
         }
         const current = response.current_version
         console.log('current:', current)
+        if (!current) {
+            return null
+        }
         const latest = await checkLatestVersion()
         console.log('latest:', latest)
         if (!latest) {
             return null
         }
-
         const cmp = current.localeCompare(latest, undefined, {
             numeric: true,
             sensitivity: 'base',
@@ -338,7 +340,6 @@ export async function checkClientVersion() {
         console.log('cmp:', cmp)
         const update = cmp !== 0
         console.log('update:', update)
-
         return { latest, current, update }
     } catch (e) {
         console.log(e)
