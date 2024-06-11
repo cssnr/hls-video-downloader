@@ -1,6 +1,7 @@
 // JS for options.html
 
 import {
+    checkClientVersion,
     checkPerms,
     grantPerms,
     linkClick,
@@ -8,6 +9,7 @@ import {
     onRemoved,
     revokePerms,
     saveOptions,
+    showToast,
     testNativeMessage,
     updateManifest,
     updateOptions,
@@ -36,6 +38,9 @@ document
 document
     .querySelectorAll('.native-message')
     .forEach((el) => el.addEventListener('click', testNativeMessage))
+document
+    .querySelectorAll('.check-version')
+    .forEach((el) => el.addEventListener('click', checkVersion))
 document
     .querySelectorAll('[data-bs-toggle="tooltip"]')
     .forEach((el) => new bootstrap.Tooltip(el))
@@ -94,5 +99,29 @@ async function setShortcuts(selector = '#keyboard-shortcuts') {
         row.querySelector('.description').textContent = description
         row.querySelector('kbd').textContent = command.shortcut || 'Not Set'
         tbody.appendChild(row)
+    }
+}
+
+async function checkVersion(event) {
+    console.debug('checkVersion:', event)
+    const btn = event.target.closest('button')
+    btn.classList.add('disabled')
+    const version = await checkClientVersion()
+    console.debug('version:', version)
+    if (!version) {
+        btn.classList.remove('disabled')
+        showToast('Error Checking Client Version.', 'danger')
+        return
+    }
+    const versionInfo = document.getElementById('version-info')
+    versionInfo.querySelector('.current').textContent = version.current
+    versionInfo.querySelector('.latest').textContent = version.latest
+    versionInfo.classList.remove('d-none')
+    if (version.update) {
+        showToast('New Version Available.', 'warning')
+        versionInfo.classList.add('text-danger-emphasis')
+    } else {
+        showToast('Client Version is Up to Date.', 'success')
+        versionInfo.classList.add('text-success-emphasis')
     }
 }

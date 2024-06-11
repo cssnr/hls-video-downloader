@@ -308,3 +308,56 @@ export async function testNativeMessage(e, toast = 'all') {
         return false
     }
 }
+
+/**
+ * Check Native Client Version
+ * @function checkClientVersion
+ * @return {Object}
+ */
+export async function checkClientVersion() {
+    try {
+        console.debug('checkClientVersion')
+        const msg = { version: true }
+        const response = await chrome.runtime.sendNativeMessage(nativeApp, msg)
+        console.log('response:', response)
+        if (!response.success) {
+            return null
+        }
+        const current = response.current_version
+        console.log('current:', current)
+        const latest = await checkLatestVersion()
+        console.log('latest:', latest)
+        if (!latest) {
+            return null
+        }
+
+        const cmp = current.localeCompare(latest, undefined, {
+            numeric: true,
+            sensitivity: 'base',
+        })
+        console.log('cmp:', cmp)
+        const update = cmp !== 0
+        console.log('update:', update)
+
+        return { latest, current, update }
+    } catch (e) {
+        console.log(e)
+        return null
+    }
+}
+
+/**
+ * Check Latest Native Client Version
+ * @function checkLatestVersion
+ * @return {Response}
+ */
+export async function checkLatestVersion() {
+    console.debug('checkLatestVersion')
+    const url = 'https://github.com/cssnr/hls-downloader-client/releases/latest'
+    const response = await fetch(url, { method: 'HEAD' })
+    console.log('response:', response)
+    if (!response.url.includes('/releases/tag/')) {
+        return null
+    }
+    return response.url.split('/').pop()
+}
