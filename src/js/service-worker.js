@@ -151,6 +151,13 @@ function onMessage(message, sender, sendResponse) {
     }
 }
 
+/**
+ * This function should be moved to a better home
+ * Download File Response Handler
+ * @function downloadResponse
+ * @param {Object} response
+ * @param {Object} message
+ */
 function downloadResponse(response, message) {
     console.log('response, message:', response, message)
     const index = activeDownloads.indexOf(message.download)
