@@ -10,6 +10,6 @@ input::placeholder {
 }
 
 #content-wrapper {
-    max-height: 380px;
+    max-height: 420px;
     overflow-y: auto;
 }

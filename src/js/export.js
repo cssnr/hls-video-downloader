@@ -362,7 +362,7 @@ async function checkClientVersion() {
             sensitivity: 'base',
         })
         console.log('cmp:', cmp)
-        const update = cmp !== 0
+        const update = cmp === -1
         console.log('update:', update)
         return { latest, current, update }
     } catch (e) {
