@@ -1,6 +1,6 @@
 // JS for client.html
 
-import { testNativeMessage } from './export.js'
+import { checkVersion, testNativeMessage } from './export.js'
 
 document.addEventListener('DOMContentLoaded', domContentLoaded)
 document
@@ -9,6 +9,9 @@ document
 document
     .querySelectorAll('.native-message')
     .forEach((el) => el.addEventListener('click', testNativeMessage))
+document
+    .querySelectorAll('.check-version')
+    .forEach((el) => el.addEventListener('click', checkVersion))
 
 /**
  * DOMContentLoaded

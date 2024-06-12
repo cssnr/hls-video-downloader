@@ -1,6 +1,7 @@
 // JS for options.html
 
 import {
+    checkVersion,
     checkPerms,
     grantPerms,
     linkClick,
@@ -36,6 +37,9 @@ document
 document
     .querySelectorAll('.native-message')
     .forEach((el) => el.addEventListener('click', testNativeMessage))
+document
+    .querySelectorAll('.check-version')
+    .forEach((el) => el.addEventListener('click', checkVersion))
 document
     .querySelectorAll('[data-bs-toggle="tooltip"]')
     .forEach((el) => new bootstrap.Tooltip(el))
