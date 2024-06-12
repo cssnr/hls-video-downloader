@@ -1,7 +1,7 @@
 // JS for options.html
 
 import {
-    checkClientVersion,
+    checkVersion,
     checkPerms,
     grantPerms,
     linkClick,
@@ -9,7 +9,6 @@ import {
     onRemoved,
     revokePerms,
     saveOptions,
-    showToast,
     testNativeMessage,
     updateManifest,
     updateOptions,
@@ -99,29 +98,5 @@ async function setShortcuts(selector = '#keyboard-shortcuts') {
         row.querySelector('.description').textContent = description
         row.querySelector('kbd').textContent = command.shortcut || 'Not Set'
         tbody.appendChild(row)
-    }
-}
-
-async function checkVersion(event) {
-    console.debug('checkVersion:', event)
-    const btn = event.target.closest('button')
-    btn.classList.add('disabled')
-    const version = await checkClientVersion()
-    console.debug('version:', version)
-    if (!version) {
-        btn.classList.remove('disabled')
-        showToast('Error Checking Client Version.', 'danger')
-        return
-    }
-    const versionInfo = document.getElementById('version-info')
-    versionInfo.querySelector('.current').textContent = version.current
-    versionInfo.querySelector('.latest').textContent = version.latest
-    versionInfo.classList.remove('d-none')
-    if (version.update) {
-        showToast('New Version Available.', 'warning')
-        versionInfo.classList.add('text-danger-emphasis')
-    } else {
-        showToast('Client Version is Up to Date.', 'success')
-        versionInfo.classList.add('text-success-emphasis')
     }
 }

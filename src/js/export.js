@@ -309,12 +309,36 @@ export async function testNativeMessage(e, toast = 'all') {
     }
 }
 
+export async function checkVersion(event) {
+    console.debug('checkVersion:', event)
+    const btn = event.target.closest('button')
+    btn.classList.add('disabled')
+    const version = await checkClientVersion()
+    console.debug('version:', version)
+    if (!version) {
+        btn.classList.remove('disabled')
+        showToast('Error Checking Client Version.', 'danger')
+        return
+    }
+    const versionInfo = document.getElementById('version-info')
+    versionInfo.querySelector('.current').textContent = version.current
+    versionInfo.querySelector('.latest').textContent = version.latest
+    versionInfo.classList.remove('d-none')
+    if (version.update) {
+        showToast('New Version Available.', 'warning')
+        versionInfo.classList.add('text-danger-emphasis')
+    } else {
+        showToast('Client Version is Up to Date.', 'success')
+        versionInfo.classList.add('text-success-emphasis')
+    }
+}
+
 /**
  * Check Native Client Version
  * @function checkClientVersion
  * @return {Object}
  */
-export async function checkClientVersion() {
+async function checkClientVersion() {
     try {
         console.debug('checkClientVersion')
         const msg = { version: true }
@@ -352,7 +376,7 @@ export async function checkClientVersion() {
  * @function checkLatestVersion
  * @return {Response}
  */
-export async function checkLatestVersion() {
+async function checkLatestVersion() {
     console.debug('checkLatestVersion')
     const url = 'https://github.com/cssnr/hls-downloader-client/releases/latest'
     const response = await fetch(url, { method: 'HEAD' })
