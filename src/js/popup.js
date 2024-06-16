@@ -155,7 +155,7 @@ function addLink(data) {
     if (data.extra) {
         a.title = `${a.title} + ${data.extra}`
     }
-    const qualities = ['240', '360', '480', '720']
+    const qualities = ['2160', '1440', '1080', '720', '480', '360', '240']
     const parsed = qualities.find((quality) => url.href.includes(quality))
     if (parsed) {
         // a.textContent = `${parsed}p - `
