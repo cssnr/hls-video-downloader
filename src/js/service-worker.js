@@ -299,8 +299,10 @@ async function onCompleted(details) {
     ) {
         return
     }
-    if (details.url.endsWith('.m3u8')) {
-        console.debug('Process m3u8:', details.url)
+    const url = new URL(details.url)
+    console.log('details.url:', url)
+    if (url.pathname.endsWith('.m3u8')) {
+        console.debug('Process m3u8:', url)
         try {
             // console.log('checking request:', details)
             const response = await fetch(details.url)
