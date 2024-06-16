@@ -300,7 +300,7 @@ async function onCompleted(details) {
         return
     }
     const url = new URL(details.url)
-    console.log('details.url:', url)
+    // console.log('details.url:', url)
     if (url.pathname.endsWith('.m3u8')) {
         console.debug('Process m3u8:', url)
         try {
