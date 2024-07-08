@@ -9,6 +9,7 @@ import {
     onRemoved,
     revokePerms,
     saveOptions,
+    showToast,
     testNativeMessage,
     updateManifest,
     updateOptions,
@@ -19,6 +20,7 @@ chrome.permissions.onAdded.addListener(onAdded)
 chrome.permissions.onRemoved.addListener(onRemoved)
 
 document.addEventListener('DOMContentLoaded', initOptions)
+document.getElementById('copy-support').addEventListener('click', copySupport)
 document
     .querySelectorAll('.revoke-permissions')
     .forEach((el) => el.addEventListener('click', revokePerms))
@@ -99,4 +101,25 @@ async function setShortcuts(selector = '#keyboard-shortcuts') {
         row.querySelector('kbd').textContent = command.shortcut || 'Not Set'
         tbody.appendChild(row)
     }
+}
+
+/**
+ * Copy Support/Debugging Information
+ * @function copySupport
+ * @param {MouseEvent} event
+ */
+async function copySupport(event) {
+    console.debug('copySupport:', event)
+    event.preventDefault()
+    const manifest = chrome.runtime.getManifest()
+    const { options } = await chrome.storage.sync.get(['options'])
+    const permissions = await chrome.permissions.getAll()
+    const result = [
+        `${manifest.name} - ${manifest.version}`,
+        navigator.userAgent,
+        `permissions.origins: ${JSON.stringify(permissions.origins)}`,
+        `options: ${JSON.stringify(options)}`,
+    ]
+    await navigator.clipboard.writeText(result.join('\n'))
+    showToast('Support Information Copied.')
 }

@@ -2,7 +2,9 @@
   "name": "hls-video-downloader",
   "scripts": {
     "postinstall": "npx gulp",
-    "lint": "npx eslint src/js",
+    "lint:eslint": "npx eslint src/js",
+    "lint:web-ext": "npm run manifest:firefox && npx web-ext lint --source-dir ./src/ --ignore-files dist/**",
+    "lint": "npm run lint:eslint && npm run lint:web-ext",
     "chrome": "npm run manifest:chrome && web-ext run --source-dir ./src/ --target=chromium",
     "firefox": "npm run manifest:firefox && web-ext run --source-dir ./src/",
     "manifest:chrome": "npx json-merger -p -am concat -o src/manifest.json manifest.json manifest-chrome.json",
@@ -21,7 +23,7 @@
     "eslint": "^8.57.0",
     "gulp": "^4.0.2",
     "json-merger": "^1.1.10",
-    "prettier": "^3.2.5",
-    "web-ext": "^7.12.0"
+    "prettier": "^3.3.2",
+    "web-ext": "^8.1.0"
   }
 }

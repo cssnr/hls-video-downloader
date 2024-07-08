@@ -3,8 +3,10 @@
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/mpmiiaolodhanoalpjncddpmnkbjicbo?label=chrome&logo=googlechrome)](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
 [![Mozilla Add-on Version](https://img.shields.io/amo/v/hls-video-downloader?label=firefox&logo=firefox)](https://addons.mozilla.org/addon/hls-video-downloader)
 [![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/hls-video-downloader?logo=github)](https://github.com/cssnr/hls-video-downloader/releases/latest)
-[![Build](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml/badge.svg)](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml)
+[![Build](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/build.yaml?logo=github&logoColor=white&label=build)](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml)
+[![Test](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/test.yaml?logo=github&logoColor=white&label=test)](https://github.com/cssnr/hls-video-downloader/actions/workflows/test.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cssnr_hls-video-downloader&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cssnr_hls-video-downloader)
+[![Discord](https://img.shields.io/discord/899171661457293343?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/wXy6m2X8wY)
 # HLS Video Downloader
 
 Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos using Native FFmpeg.
@@ -15,6 +17,7 @@ This Web Extension is a Work in Progress, may contain bugs or not work as expect
 *   [Features](#features)
     -   [Known Issues](#known-issues)
 *   [Configuration](#configuration)
+*   [Support](#support)
 *   [Development](#development)
     -   [Building](#building)
 
@@ -73,6 +76,24 @@ You can pin the Addon by clicking the `Puzzle Piece`, find the Web Extension ico
 **Firefox,** click the `Settings Wheel` and `Pin to Toolbar`.
 
 To open the options, click on the icon (from above) then click `Open Options`.
+
+# Support
+
+For help using the web extension, utilize any these resources:
+
+- Q&A Discussion: https://github.com/cssnr/hls-video-downloader/discussions/categories/q-a
+- Request a Feature: https://github.com/cssnr/hls-video-downloader/discussions/categories/feature-requests
+
+If you are experiencing an issue/bug or getting unexpected results, use:
+
+- Report an Issue: https://github.com/cssnr/hls-video-downloader/issues
+- Chat with us on Discord: https://discord.gg/wXy6m2X8wY
+- Provide Anonymous Feedback: https://cssnr.github.io/feedback
+
+Logs can be found inspecting the page (Ctrl+Shift+I), clicking on the Console, and;
+Firefox: toggling Debug logs, Chrome: toggling Verbose from levels dropdown.
+
+Note: When providing anonymous feedback there is no way to follow up and get more information unless you provide a contact method.
 
 # Development
 
