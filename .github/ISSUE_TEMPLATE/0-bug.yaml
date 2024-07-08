@@ -1,0 +1,20 @@
+name: "⚠️ Report an Issue"
+description: "Something Not Working Right? Please let us know..."
+labels: ["bug"]
+assignees:
+  - smashedr
+
+body:
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Details
+      description: Please describe the issue you are experiencing and how to reproduce.
+      placeholder: Provide as many details as you can...
+
+  - type: markdown
+    attributes:
+      value: |
+        All issues/bugs that we can verify will be fixed. Thank you for taking the time to make this report!

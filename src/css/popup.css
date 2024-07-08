@@ -5,10 +5,6 @@ body {
     overflow-x: hidden;
 }
 
-input::placeholder {
-    text-align: center;
-}
-
 #content-wrapper {
     max-height: 420px;
     overflow-y: auto;
