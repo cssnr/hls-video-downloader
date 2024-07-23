@@ -210,7 +210,7 @@ function onChanged(changes, namespace) {
 /**
  * Check Tab Scripting
  * @function checkTab
- * @return {Boolean}
+ * @return {Promise<*|Boolean>}
  */
 async function checkTab() {
     try {

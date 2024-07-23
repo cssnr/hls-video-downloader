@@ -43,12 +43,10 @@ async function onStartup() {
 async function onInstalled(details) {
     console.log('onInstalled:', details)
     const githubURL = 'https://github.com/cssnr/hls-video-downloader'
-    const options = await Promise.resolve(
-        setDefaultOptions({
-            contextMenu: true,
-            showUpdate: false,
-        })
-    )
+    const options = await setDefaultOptions({
+        contextMenu: true,
+        showUpdate: false,
+    })
     console.debug('options:', options)
     if (options.contextMenu) {
         createContextMenus()
@@ -260,7 +258,7 @@ function addContext(context) {
  * Set Default Options
  * @function setDefaultOptions
  * @param {Object} defaultOptions
- * @return {Object}
+ * @return {Promise<*|Object>}
  */
 async function setDefaultOptions(defaultOptions) {
     console.log('setDefaultOptions', defaultOptions)
