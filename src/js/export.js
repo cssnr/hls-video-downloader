@@ -123,7 +123,7 @@ export async function linkClick(event, close = false) {
  * @function activateOrOpen
  * @param {String} url
  * @param {Boolean} [open]
- * @return {Boolean}
+ * @return {Promise<*|Boolean>}
  */
 export async function activateOrOpen(url, open = true) {
     console.debug('activateOrOpen:', url)
@@ -158,7 +158,7 @@ export function updateManifest() {
 /**
  * Check Host Permissions
  * @function checkPerms
- * @return {Boolean}
+ * @return {Promise<*|Boolean>}
  */
 export async function checkPerms() {
     const hasPerms = await chrome.permissions.contains({
@@ -199,7 +199,7 @@ export async function grantPerms(event, close = false) {
 /**
  * Request Host Permissions
  * @function requestPerms
- * @return {chrome.permissions.request}
+ * @return {Promise<*|chrome.permissions.request>}
  */
 export async function requestPerms() {
     return await chrome.permissions.request({
@@ -298,7 +298,7 @@ export async function sendNotification(title, text, id = '', timeout = 30) {
  * @function testNativeMessage
  * @param {Event} [e]
  * @param {String} [toast]
- * @return {Boolean}
+ * @return {Promise<*|Boolean>}
  */
 export async function testNativeMessage(e, toast = 'all') {
     try {
@@ -342,7 +342,7 @@ export async function checkVersion(event) {
 /**
  * Check Native Client Version
  * @function checkClientVersion
- * @return {Object}
+ * @return {Promise<*|Object>}
  */
 async function checkClientVersion() {
     try {
@@ -380,7 +380,7 @@ async function checkClientVersion() {
 /**
  * Check Latest Native Client Version
  * @function checkLatestVersion
- * @return {Response}
+ * @return {Promise<*|Response>}
  */
 async function checkLatestVersion() {
     console.debug('checkLatestVersion')

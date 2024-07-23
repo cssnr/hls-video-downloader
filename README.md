@@ -1,11 +1,14 @@
-[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/mpmiiaolodhanoalpjncddpmnkbjicbo?logo=google&logoColor=white&label=google%20users)](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
-[![Mozilla Add-on Users](https://img.shields.io/amo/users/hls-video-downloader?logo=mozilla&label=mozilla%20users)](https://addons.mozilla.org/addon/hls-video-downloader)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/mpmiiaolodhanoalpjncddpmnkbjicbo?logo=google&logoColor=white&label=users)](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
+[![Mozilla Add-on Users](https://img.shields.io/amo/users/hls-video-downloader?logo=mozilla&label=users)](https://addons.mozilla.org/addon/hls-video-downloader)
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/mpmiiaolodhanoalpjncddpmnkbjicbo?label=chrome&logo=googlechrome)](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
 [![Mozilla Add-on Version](https://img.shields.io/amo/v/hls-video-downloader?label=firefox&logo=firefox)](https://addons.mozilla.org/addon/hls-video-downloader)
-[![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/hls-video-downloader?logo=github)](https://github.com/cssnr/hls-video-downloader/releases/latest)
+[![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/hls-video-downloader?logo=github&logoColor=white)](https://github.com/cssnr/hls-video-downloader/releases/latest)
 [![Build](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/build.yaml?logo=github&logoColor=white&label=build)](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml)
 [![Test](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/test.yaml?logo=github&logoColor=white&label=test)](https://github.com/cssnr/hls-video-downloader/actions/workflows/test.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cssnr_hls-video-downloader&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cssnr_hls-video-downloader)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/cssnr/hls-video-downloader?logo=github&logoColor=white&label=updated)](https://github.com/cssnr/hls-video-downloader/graphs/commit-activity)
+[![GitHub Top Language](https://img.shields.io/github/languages/top/cssnr/hls-video-downloader?logo=htmx&logoColor=white)](https://github.com/cssnr/hls-video-downloader)
+[![GitHub Org Stars](https://img.shields.io/github/stars/cssnr?style=flat&logo=github&logoColor=white)](https://cssnr.github.io/)
 [![Discord](https://img.shields.io/discord/899171661457293343?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/wXy6m2X8wY)
 # HLS Video Downloader
 
@@ -13,15 +16,17 @@ Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos usi
 
 This Web Extension is a Work in Progress, may contain bugs or not work as expected.
 
-*   [Install](#install)
-*   [Features](#features)
-    -   [Known Issues](#known-issues)
-*   [Configuration](#configuration)
-*   [Support](#support)
-*   [Development](#development)
-    -   [Building](#building)
+*   [Install](#Install)
+*   [Features](#Features)
+    -   [Upcoming Features](#Upcoming-Features)
+    -   [Known Issues](#Known-Issues)
+*   [Configuration](#Configuration)
+*   [Support](#Support)
+*   [Development](#Development)
+    -   [Building](#Building)
+*   [Contributing](#Contributing)
 
-# Install
+## Install
 
 *   [Google Chrome Web Store](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
 *   [Mozilla Firefox Add-ons](https://addons.mozilla.org/addon/hls-video-downloader)
@@ -45,13 +50,21 @@ All **Chromium** Based Browsers can install the extension from the
 > - Linux: [install-linux.deb](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-linux.deb)
 > - macOS: [install-macos.pkg](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-macos.pkg)
 
-# Features
+## Features
 
 - Download `*.m3u8` videos using a native [ffmpeg application](https://github.com/cssnr/hls-downloader-client).
 - Shows the total number of streams found on the toolbar icon.
 - Sends a notification when complete you can click on to open the download folder.
 
-## Known Issues
+### Upcoming Features
+
+- Playlist parsing to display correct qualities and combine audio/video.
+
+> [!TIP]
+> **Don't see your feature here?**
+> Request one on the [Feature Request Discussion](https://github.com/cssnr/hls-video-downloader/discussions/categories/feature-requests).
+
+### Known Issues
 
 - Streams with separate video and audio will show up as 2 downloads.
 - Stream quality display is not yet accurate.
@@ -61,15 +74,7 @@ All **Chromium** Based Browsers can install the extension from the
 > **Don't see your issue here?**
 > Open one on the [Issues](https://github.com/cssnr/hls-video-downloader/issues).
 
-## Upcoming Features
-
-- Playlist parsing to display correct qualities and combine audio/video.
-
-> [!TIP]
-> **Don't see your feature here?**
-> Request one on the [Feature Request Discussion](https://github.com/cssnr/hls-video-downloader/discussions/categories/feature-requests).
-
-# Configuration
+## Configuration
 
 You can pin the Addon by clicking the `Puzzle Piece`, find the Web Extension icon, then;  
 **Chrome,** click the `Pin` icon.  
@@ -77,7 +82,7 @@ You can pin the Addon by clicking the `Puzzle Piece`, find the Web Extension ico
 
 To open the options, click on the icon (from above) then click `Open Options`.
 
-# Support
+## Support
 
 For help using the web extension, utilize any these resources:
 
@@ -88,12 +93,12 @@ If you are experiencing an issue/bug or getting unexpected results, use:
 
 - Report an Issue: https://github.com/cssnr/hls-video-downloader/issues
 - Chat with us on Discord: https://discord.gg/wXy6m2X8wY
-- Provide Anonymous Feedback: https://cssnr.github.io/feedback
+- Provide General Feedback: https://cssnr.github.io/feedback
 
 Logs can be found inspecting the page (Ctrl+Shift+I), clicking on the Console, and;
 Firefox: toggling Debug logs, Chrome: toggling Verbose from levels dropdown.
 
-Note: When providing anonymous feedback there is no way to follow up and get more information unless you provide a contact method.
+To support this project, see the [Contributing](#Contributing) section at the bottom.
 
 # Development
 
@@ -142,7 +147,7 @@ npm run build:firefox
 
 For more information on building, see the scripts section in the [package.json](package.json) file.
 
-## Chrome Setup
+### Chrome Setup
 
 1.  Build or Download a [Release](https://github.com/cssnr/hls-video-downloader/releases).
 1.  Unzip the archive, place the folder where it must remain and note its location for later.
@@ -150,7 +155,7 @@ For more information on building, see the scripts section in the [package.json](
 1.  In the top right, click `Developer Mode` then on the top left click `Load unpacked`.
 1.  Navigate to the folder you extracted in step #3 then click `Select Folder`.
 
-## Firefox Setup
+### Firefox Setup
 
 1.  Build or Download a [Release](https://github.com/cssnr/hls-video-downloader/releases).
 1.  Unzip the archive, place the folder where it must remain and note its location for later.
@@ -164,3 +169,22 @@ You may also use an Unbranded Build: [https://wiki.mozilla.org/Add-ons/Extension
 1.  Run `npm run build:firefox` then use `web-ext-artifacts/{name}-firefox-{version}.zip`.
 1.  Open `about:config` search for `xpinstall.signatures.required` and set to `false`.
 1.  Open `about:addons` and drag the zip file to the page or choose Install from File from the Settings wheel.
+
+# Contributing
+
+Currently, the best way to contribute to this project is to give a 5-star rating on
+[Google](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo) or
+[Mozilla](https://addons.mozilla.org/addon/hls-video-downloader) and to star this project on GitHub.
+
+Other Web Extensions I have created and published:
+
+- [Link Extractor](https://github.com/cssnr/link-extractor)
+- [Open Links in New Tab](https://github.com/cssnr/open-links-in-new-tab)
+- [HLS Video Downloader](https://github.com/cssnr/hls-video-downloader)
+- [SMWC Web Extension](https://github.com/cssnr/smwc-web-extension)
+- [PlayDrift Extension](https://github.com/cssnr/playdrift-extension)
+- [ASN Plus](https://github.com/cssnr/asn-plus)
+- [Aviation Tools](https://github.com/cssnr/aviation-tools)
+- [Text Formatter](https://github.com/cssnr/text-formatter)
+
+For a full list of current projects visit: [https://cssnr.github.io/](https://cssnr.github.io/)
