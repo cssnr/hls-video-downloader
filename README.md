@@ -74,7 +74,7 @@ All **Chromium** Based Browsers can install the extension from the
 > **Don't see your issue here?**
 > Open one on the [Issues](https://github.com/cssnr/hls-video-downloader/issues).
 
-# Configuration
+## Configuration
 
 You can pin the Addon by clicking the `Puzzle Piece`, find the Web Extension icon, then;  
 **Chrome,** click the `Pin` icon.  
@@ -82,7 +82,7 @@ You can pin the Addon by clicking the `Puzzle Piece`, find the Web Extension ico
 
 To open the options, click on the icon (from above) then click `Open Options`.
 
-# Support
+## Support
 
 For help using the web extension, utilize any these resources:
 
@@ -147,7 +147,7 @@ npm run build:firefox
 
 For more information on building, see the scripts section in the [package.json](package.json) file.
 
-## Chrome Setup
+### Chrome Setup
 
 1.  Build or Download a [Release](https://github.com/cssnr/hls-video-downloader/releases).
 1.  Unzip the archive, place the folder where it must remain and note its location for later.
@@ -155,7 +155,7 @@ For more information on building, see the scripts section in the [package.json](
 1.  In the top right, click `Developer Mode` then on the top left click `Load unpacked`.
 1.  Navigate to the folder you extracted in step #3 then click `Select Folder`.
 
-## Firefox Setup
+### Firefox Setup
 
 1.  Build or Download a [Release](https://github.com/cssnr/hls-video-downloader/releases).
 1.  Unzip the archive, place the folder where it must remain and note its location for later.
