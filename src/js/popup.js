@@ -186,7 +186,11 @@ async function downloadMedia(event) {
         active: true,
     })
     await chrome.tabs.sendMessage(tab.id, { download: url })
-    await chrome.runtime.sendMessage({ download: url, extra: extra })
+    await chrome.runtime.sendMessage({
+        download: url,
+        extra: extra,
+        title: tab.title,
+    })
     showToast('Download Started.')
 }
 
