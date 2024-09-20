@@ -1,5 +1,6 @@
 // JS Exports
 
+export const githubURL = 'https://github.com/cssnr/hls-video-downloader'
 export const nativeApp = 'org.cssnr.hls.downloader'
 
 /**
@@ -145,14 +146,17 @@ export async function activateOrOpen(url, open = true) {
  * Update DOM with Manifest Details
  * @function updateManifest
  */
-export function updateManifest() {
+export async function updateManifest() {
     const manifest = chrome.runtime.getManifest()
-    document
-        .querySelectorAll('.version')
-        .forEach((el) => (el.textContent = manifest.version))
-    document
-        .querySelectorAll('[href="homepage_url"]')
-        .forEach((el) => (el.href = manifest.homepage_url))
+    document.querySelectorAll('.version').forEach((el) => {
+        el.textContent = manifest.version
+    })
+    document.querySelectorAll('[href="homepage_url"]').forEach((el) => {
+        el.href = manifest.homepage_url
+    })
+    document.querySelectorAll('[href="version_url"]').forEach((el) => {
+        el.href = `${githubURL}/releases/tag/${manifest.version}`
+    })
 }
 
 /**
@@ -183,13 +187,13 @@ export async function checkPerms() {
 
 /**
  * Grant Permissions Click Callback
- * Promise from requestPerms is ignored so we can close the popup immediately
  * @function grantPerms
  * @param {MouseEvent} event
  * @param {Boolean} [close]
  */
 export async function grantPerms(event, close = false) {
     console.debug('grantPerms:', event)
+    // noinspection ES6MissingAwait
     requestPerms()
     if (close) {
         window.close()
@@ -353,6 +357,7 @@ async function checkClientVersion() {
         if (!response.success) {
             return null
         }
+        // noinspection JSUnresolvedReference
         const current = response.current_version
         console.log('current:', current)
         if (!current) {

@@ -14,6 +14,38 @@
 <body>
 
 <div class="container-fluid p-2">
+    <div class="d-flex flex-row align-items-center">
+        <div class="dropdown">
+            <a class="nav-link" id="bs-theme-dropdown" title="Theme Switcher" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i id="theme-icon" class="fa-solid fa-circle-half-stroke fa-lg" style="min-width: 20px;"></i> <i class="fa-solid fa-caret-down fa-xs mx-1"></i></a>
+            <ul class="dropdown-menu auto dropdown-menu-end" aria-labelledby="bs-theme-dropdown">
+                <li><button class="dropdown-item" data-bs-theme-value="dark" aria-pressed="false">
+                    <i class="fa-regular fa-moon" style="min-width: 16px;"></i> <span class="ms-3">Dark</span></button></li>
+                <li><button class="dropdown-item" data-bs-theme-value="light" aria-pressed="false">
+                    <i class="fa-solid fa-sun" style="min-width: 16px;"></i> <span class="ms-3">Light</span></button></li>
+                <li><button class="dropdown-item" data-bs-theme-value="auto" aria-pressed="false">
+                    <i class="fa-solid fa-circle-half-stroke" style="min-width: 16px;"></i> <span class="ms-3">Auto</span></button></li>
+            </ul>
+        </div>
+
+        <div class="flex-fill text-center">
+            <a class="link-body-emphasis text-decoration-none fs-4" title="Home Page" href="homepage_url">
+                <img src="../images/logo32.png" alt="Logo" class="mb-1" style="height: 1.1em;">
+                HLS Downloader</a>
+            <a class="link-body-emphasis text-decoration-none small" title="Release Notes" href="version_url">
+                v<span class="version"></span></a>
+        </div>
+
+        <div class="">
+            <a class="btn btn-sm btn-outline-info" role="button" href="../html/options.html" title="Options">
+                <i class="fa-solid fa-gears"></i></a>
+        </div>
+    </div> <!-- d-flex -->
+</div> <!-- container-fluid -->
+
+<hr class="my-0">
+
+<div class="container-fluid p-2">
     <div class="d-none grant-perms">
         <button class="btn btn-lg btn-success w-100 mb-1 grant-permissions" type="button"
                 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover"
@@ -21,11 +53,10 @@
             <i class="fa-solid fa-check-double me-1"></i> Grant Host Permissions</button>
         <p class="text-center mb-2"><a href="../html/permissions.html" class="">
             More Information on Permissions</a></p>
-        <hr class="my-2">
     </div>
 
-    <div id="host-div" class="small pt-1 pb-2 text-center border border-2 rounded mb-2 has-perms" style="overflow: hidden;">
-        <kbd>Invalid Site</kbd>
+    <div id="host-div" class="small text-center border border-2 rounded mb-2 p-1 pb-0 has-perms">
+        <kbd class="d-inline-block text-ellipsis py-0 px-1">No Access to Current Tab</kbd>
     </div>
 
     <div id="content-wrapper" class="mb-2">
@@ -47,17 +78,6 @@
             </div>
         </div>
     </div>
-
-    <a class="btn btn-sm btn-outline-info w-100" href="../html/options.html">
-        <i class="fa-solid fa-sliders me-1"></i> Open Options</a>
-
-    <hr class="my-2">
-
-    <div class="d-flex justify-content-center align-items-center text-center small">
-        <img src="../images/logo16.png" width="16" height="16" alt="HLS Video Downloader" title="HLS Video Downloader">
-        <a class="link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-75-hover mx-2" type="button" rel="noopener"
-           href="homepage_url">HLS Video Downloader</a> v<span class="version"></span>
-    </div>
 </div> <!-- container -->
 
 <div aria-live="polite" aria-atomic="true" class="">
@@ -70,8 +90,7 @@
             <div class="toast-body text-break small"></div>
         </div>
     </div>
-    <button type="button" class="btn btn-outline-success"
-            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"></button>
+    <button type="button" class="btn btn-outline-success" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"></button>
 </div> <!-- d-none -->
 
 <script type="text/javascript" src="../dist/jquery/jquery.min.js"></script>

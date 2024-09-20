@@ -14,9 +14,11 @@ import {
 chrome.storage.onChanged.addListener(onChanged)
 
 document.addEventListener('DOMContentLoaded', initPopup)
+// noinspection JSCheckFunctionSignatures
 document
     .querySelectorAll('.grant-permissions')
     .forEach((el) => el.addEventListener('click', (e) => grantPerms(e, true)))
+// noinspection JSCheckFunctionSignatures
 document
     .querySelectorAll('a[href]')
     .forEach((el) => el.addEventListener('click', (e) => linkClick(e, true)))
@@ -37,11 +39,12 @@ const mediaList = document.getElementById('media-list')
  */
 async function initPopup() {
     console.debug('initPopup')
+    // noinspection ES6MissingAwait
     updateManifest()
-
-    // Options
-    const { options } = await chrome.storage.sync.get(['options'])
-    updateOptions(options)
+    chrome.storage.sync.get(['options']).then((items) => {
+        console.debug('options:', items.options)
+        updateOptions(items.options)
+    })
 
     // Host Permissions
     const hasPerms = await checkPerms()
@@ -98,7 +101,7 @@ async function processDownloads(downloads) {
         downloadsWrapper.appendChild(div)
     }
     const div = document.getElementById('downloads-text')
-    div.textContent = `Active Downloads: ${downloads.length}`
+    div.innerHTML = `Active Downloads: <b>${downloads.length}</b>`
 }
 
 async function processURLs(urls, downloads) {
@@ -127,7 +130,7 @@ async function processURLs(urls, downloads) {
         available += 1
     }
     const div = document.getElementById('media-text')
-    div.textContent = `Found ${available} videos:`
+    div.innerHTML = `Found <b>${available}</b> Resources:`
 }
 
 /**
@@ -186,7 +189,11 @@ async function downloadMedia(event) {
         active: true,
     })
     await chrome.tabs.sendMessage(tab.id, { download: url })
-    await chrome.runtime.sendMessage({ download: url, extra: extra })
+    await chrome.runtime.sendMessage({
+        download: url,
+        extra: extra,
+        title: tab.title,
+    })
     showToast('Download Started.')
 }
 
