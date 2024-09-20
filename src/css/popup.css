@@ -6,6 +6,6 @@ body {
 }
 
 #content-wrapper {
-    max-height: 420px;
+    max-height: 440px;
     overflow-y: auto;
 }

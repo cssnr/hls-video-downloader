@@ -29,6 +29,7 @@ function onMessage(message, sender, sendResponse) {
             console.debug('urls.length:', urls.length)
             console.debug('text:', urls.length ? urls.length.toString() : '')
             console.debug('color:', urls.length ? 'yellow' : null)
+            // noinspection JSIgnoredPromiseFromCall
             chrome.runtime.sendMessage({
                 badgeText: urls.length ? urls.length.toString() : '',
                 badgeColor: urls.length ? 'yellow' : null,
@@ -36,6 +37,7 @@ function onMessage(message, sender, sendResponse) {
         }
     } else if (message.url) {
         addUrl(message)
+        // noinspection JSIgnoredPromiseFromCall
         chrome.runtime.sendMessage({
             badgeText: urls.length.toString(),
             badgeColor: 'yellow',

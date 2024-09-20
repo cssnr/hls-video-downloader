@@ -3,12 +3,13 @@
 import {
     activateOrOpen,
     checkPerms,
+    githubURL,
     nativeApp,
     sendNotification,
 } from './export.js'
 
-chrome.runtime.onStartup.addListener(onStartup)
 chrome.runtime.onInstalled.addListener(onInstalled)
+chrome.runtime.onStartup.addListener(onStartup)
 chrome.contextMenus.onClicked.addListener(onClicked)
 chrome.runtime.onMessage.addListener(onMessage)
 chrome.storage.onChanged.addListener(onChanged)
@@ -20,29 +21,12 @@ chrome.webRequest.onCompleted.addListener(onCompleted, {
 const activeDownloads = []
 
 /**
- * On Startup Callback
- * @function onStartup
- */
-async function onStartup() {
-    console.log('onStartup')
-    if (typeof browser !== 'undefined') {
-        console.log('Firefox CTX Menu Workaround')
-        const { options } = await chrome.storage.sync.get(['options'])
-        console.debug('options:', options)
-        if (options.contextMenu) {
-            createContextMenus()
-        }
-    }
-}
-
-/**
  * On Installed Callback
  * @function onInstalled
  * @param {InstalledDetails} details
  */
 async function onInstalled(details) {
     console.log('onInstalled:', details)
-    const githubURL = 'https://github.com/cssnr/hls-video-downloader'
     const options = await setDefaultOptions({
         contextMenu: true,
         showUpdate: false,
@@ -78,7 +62,30 @@ async function onInstalled(details) {
             }
         }
     }
-    await chrome.runtime.setUninstallURL(`${githubURL}/issues`)
+    setUninstallURL()
+}
+
+/**
+ * On Startup Callback
+ * @function onStartup
+ */
+async function onStartup() {
+    console.log('onStartup')
+    // noinspection JSUnresolvedReference
+    if (typeof browser !== 'undefined') {
+        console.log('Firefox Startup Workarounds')
+        const { options } = await chrome.storage.sync.get(['options'])
+        console.debug('options:', options)
+        if (options.contextMenu) {
+            createContextMenus()
+        }
+        setUninstallURL()
+    }
+}
+
+function setUninstallURL() {
+    chrome.runtime.setUninstallURL(`${githubURL}/issues`)
+    console.debug(`setUninstallURL: ${githubURL}/issues`)
 }
 
 /**
@@ -119,6 +126,7 @@ function onMessage(message, sender, sendResponse) {
     // console.debug('tabId:', message.tabId || sender.tab?.id)
     if (typeof message.badgeText === 'string') {
         console.debug('message.badgeText:', message.badgeText)
+        // noinspection JSIgnoredPromiseFromCall
         chrome.action.setBadgeText({
             tabId: message.tabId || sender.tab.id,
             text: message.badgeText,
@@ -126,6 +134,7 @@ function onMessage(message, sender, sendResponse) {
     }
     if (message.badgeColor) {
         console.debug('message.badgeColor:', message.badgeColor)
+        // noinspection JSIgnoredPromiseFromCall
         chrome.action.setBadgeBackgroundColor({
             tabId: message.tabId || sender.tab.id,
             color: message.badgeColor,
@@ -163,8 +172,10 @@ function downloadResponse(response, message) {
         activeDownloads.splice(index, 1)
     }
     if (response.success) {
+        // noinspection JSIgnoredPromiseFromCall
         sendNotification('Download Complete', response.path, response.path)
     } else {
+        // noinspection JSIgnoredPromiseFromCall
         sendNotification('Download Error', response.message)
     }
 }
