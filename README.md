@@ -4,13 +4,14 @@
 [![Mozilla Add-on Version](https://img.shields.io/amo/v/hls-video-downloader?label=firefox&logo=firefox)](https://addons.mozilla.org/addon/hls-video-downloader)
 [![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/hls-video-downloader?logo=github&logoColor=white)](https://github.com/cssnr/hls-video-downloader/releases/latest)
 [![Build](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/build.yaml?logo=github&logoColor=white&label=build)](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml)
-[![Test](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/test.yaml?logo=github&logoColor=white&label=test)](https://github.com/cssnr/hls-video-downloader/actions/workflows/test.yaml)
+[![Lint](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/lint.yaml?logo=github&logoColor=white&label=lint)](https://github.com/cssnr/hls-video-downloader/actions/workflows/lint.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cssnr_hls-video-downloader&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cssnr_hls-video-downloader)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/cssnr/hls-video-downloader?logo=github&logoColor=white&label=updated)](https://github.com/cssnr/hls-video-downloader/graphs/commit-activity)
 [![GitHub Top Language](https://img.shields.io/github/languages/top/cssnr/hls-video-downloader?logo=htmx&logoColor=white)](https://github.com/cssnr/hls-video-downloader)
 [![GitHub Repo Size](https://img.shields.io/github/repo-size/cssnr/hls-video-downloader?logo=bookstack&logoColor=white&label=repo%20size)](https://github.com/cssnr/hls-video-downloader)
 [![GitHub Org Stars](https://img.shields.io/github/stars/cssnr?style=flat&logo=github&logoColor=white)](https://cssnr.github.io/)
 [![Discord](https://img.shields.io/discord/899171661457293343?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/wXy6m2X8wY)
+[![Support](https://img.shields.io/badge/Ko--fi-579fbf?logo=kofi&label=Support)](https://ko-fi.com/cssnr)
 
 # HLS Video Downloader
 
@@ -182,9 +183,14 @@ You may also use an Unbranded Build: [https://wiki.mozilla.org/Add-ons/Extension
 
 # Contributing
 
-Currently, the best way to contribute to this project is to give a 5-star rating on
-[Google](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo) or
-[Mozilla](https://addons.mozilla.org/addon/hls-video-downloader) and to star this project on GitHub.
+Please consider making a donation to support the development of this project
+and [additional](https://cssnr.com/) open source projects.
+
+[![Support](https://img.shields.io/badge/Ko--fi-579fbf?style=for-the-badge&logo=kofi&label=Support)](https://ko-fi.com/cssnr)
+
+Additionally, you can give a 5-star rating
+on [Google](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
+or [Mozilla](https://addons.mozilla.org/addon/hls-video-downloader) and star this project on GitHub.
 
 Other Web Extensions I have created and published:
 
