@@ -8,28 +8,30 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cssnr_hls-video-downloader&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cssnr_hls-video-downloader)
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/cssnr/hls-video-downloader?logo=github&logoColor=white&label=updated)](https://github.com/cssnr/hls-video-downloader/graphs/commit-activity)
 [![GitHub Top Language](https://img.shields.io/github/languages/top/cssnr/hls-video-downloader?logo=htmx&logoColor=white)](https://github.com/cssnr/hls-video-downloader)
+[![GitHub Repo Size](https://img.shields.io/github/repo-size/cssnr/hls-video-downloader?logo=bookstack&logoColor=white&label=repo%20size)](https://github.com/cssnr/hls-video-downloader)
 [![GitHub Org Stars](https://img.shields.io/github/stars/cssnr?style=flat&logo=github&logoColor=white)](https://cssnr.github.io/)
 [![Discord](https://img.shields.io/discord/899171661457293343?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/wXy6m2X8wY)
+
 # HLS Video Downloader
 
 Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos using Native FFmpeg.
 
 This Web Extension is a Work in Progress, may contain bugs or not work as expected.
 
-*   [Install](#Install)
-*   [Features](#Features)
-    -   [Upcoming Features](#Upcoming-Features)
-    -   [Known Issues](#Known-Issues)
-*   [Configuration](#Configuration)
-*   [Support](#Support)
-*   [Development](#Development)
-    -   [Building](#Building)
-*   [Contributing](#Contributing)
+- [Install](#Install)
+- [Features](#Features)
+    - [Upcoming Features](#Upcoming-Features)
+    - [Known Issues](#Known-Issues)
+- [Configuration](#Configuration)
+- [Support](#Support)
+- [Development](#Development)
+    - [Building](#Building)
+- [Contributing](#Contributing)
 
 ## Install
 
-*   [Google Chrome Web Store](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
-*   [Mozilla Firefox Add-ons](https://addons.mozilla.org/addon/hls-video-downloader)
+- [Google Chrome Web Store](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
+- [Mozilla Firefox Add-ons](https://addons.mozilla.org/addon/hls-video-downloader)
 
 [![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/main/src/chrome/chrome_48x48.png)](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
 [![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/main/src/firefox/firefox_48x48.png)](https://addons.mozilla.org/addon/hls-video-downloader)
@@ -44,8 +46,11 @@ All **Chromium** Based Browsers can install the extension from the
 
 > [!WARNING]
 > This web extension requires a client app to use native FFmpeg.  
-> Source: https://github.com/cssnr/hls-downloader-client  
-> 
+> Source: https://github.com/cssnr/hls-downloader-client
+>
+> [![GitHub Downloads](https://img.shields.io/github/downloads/cssnr/hls-downloader-client/total?logo=github)](https://github.com/cssnr/hls-downloader-client/releases/latest)
+> [![GitHub Release](https://img.shields.io/github/v/release/cssnr/hls-downloader-client?logo=github)](https://github.com/cssnr/hls-downloader-client/releases/latest)
+>
 > - Windows: [install-win.exe](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-win.exe)
 > - Linux: [install-linux.deb](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-linux.deb)
 > - macOS: [install-macos.pkg](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-macos.pkg)
@@ -107,17 +112,20 @@ To support this project, see the [Contributing](#Contributing) section at the bo
 First, clone (or download) this repository and change into the directory.
 
 Second, install the dependencies:
+
 ```shell
 npm install
 ```
 
 Finally, to run Chrome or Firefox with web-ext, run one of the following:
+
 ```shell
 npm run chrome
 npm run firefox
 ```
 
 Additionally, to Load Unpacked/Temporary Add-on make a `manifest.json` and run from the [src](src) folder, run one of the following:
+
 ```shell
 npm run manifest:chrome
 npm run manifest:firefox
@@ -134,11 +142,13 @@ Example: `npm run chrome -- --chromium-binary=...`
 
 Install the requirements and copy libraries into the `src/dist` directory by running `npm install`.
 See [gulpfile.js](gulpfile.js) for more information on `postinstall`.
+
 ```shell
 npm install
 ```
 
 To create a `.zip` archive of the [src](src) directory for the desired browser run one of the following:
+
 ```shell
 npm run build
 npm run build:chrome
@@ -178,13 +188,16 @@ Currently, the best way to contribute to this project is to give a 5-star rating
 
 Other Web Extensions I have created and published:
 
-- [Link Extractor](https://github.com/cssnr/link-extractor)
-- [Open Links in New Tab](https://github.com/cssnr/open-links-in-new-tab)
-- [HLS Video Downloader](https://github.com/cssnr/hls-video-downloader)
-- [SMWC Web Extension](https://github.com/cssnr/smwc-web-extension)
-- [PlayDrift Extension](https://github.com/cssnr/playdrift-extension)
-- [ASN Plus](https://github.com/cssnr/asn-plus)
-- [Aviation Tools](https://github.com/cssnr/aviation-tools)
-- [Text Formatter](https://github.com/cssnr/text-formatter)
+- [Link Extractor](https://github.com/cssnr/link-extractor?tab=readme-ov-file#readme)
+- [Open Links in New Tab](https://github.com/cssnr/open-links-in-new-tab?tab=readme-ov-file#readme)
+- [Auto Auth](https://github.com/cssnr/auto-auth?tab=readme-ov-file#readme)
+- [Cache Cleaner](https://github.com/cssnr/cache-cleaner?tab=readme-ov-file#readme)
+- [HLS Video Downloader](https://github.com/cssnr/hls-video-downloader?tab=readme-ov-file#readme)
+- [Obtainium Extension](https://github.com/cssnr/obtainium-extension?tab=readme-ov-file#readme)
+- [SMWC Web Extension](https://github.com/cssnr/smwc-web-extension?tab=readme-ov-file#readme)
+- [PlayDrift Extension](https://github.com/cssnr/playdrift-extension?tab=readme-ov-file#readme)
+- [ASN Plus](https://github.com/cssnr/asn-plus?tab=readme-ov-file#readme)
+- [Aviation Tools](https://github.com/cssnr/aviation-tools?tab=readme-ov-file#readme)
+- [Text Formatter](https://github.com/cssnr/text-formatter?tab=readme-ov-file#readme)
 
 For a full list of current projects visit: [https://cssnr.github.io/](https://cssnr.github.io/)
