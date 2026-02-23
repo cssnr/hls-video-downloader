@@ -219,10 +219,7 @@ async function notificationsClicked(notificationId) {
     const message = { open: notificationId }
     console.log('message:', message)
     try {
-        const response = await chrome.runtime.sendNativeMessage(
-            nativeApp,
-            message
-        )
+        const response = await chrome.runtime.sendNativeMessage(nativeApp, message)
         console.log('response:', response)
     } catch (e) {
         console.log(e)
