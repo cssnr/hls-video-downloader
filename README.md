@@ -2,16 +2,21 @@
 [![Mozilla Add-on Users](https://img.shields.io/amo/users/hls-video-downloader?logo=mozilla&label=users)](https://addons.mozilla.org/addon/hls-video-downloader)
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/mpmiiaolodhanoalpjncddpmnkbjicbo?label=chrome&logo=googlechrome)](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
 [![Mozilla Add-on Version](https://img.shields.io/amo/v/hls-video-downloader?label=firefox&logo=firefox)](https://addons.mozilla.org/addon/hls-video-downloader)
-[![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/hls-video-downloader?logo=github&logoColor=white)](https://github.com/cssnr/hls-video-downloader/releases/latest)
-[![Build](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/build.yaml?logo=github&logoColor=white&label=build)](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml)
-[![Lint](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/lint.yaml?logo=github&logoColor=white&label=lint)](https://github.com/cssnr/hls-video-downloader/actions/workflows/lint.yaml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cssnr_hls-video-downloader&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cssnr_hls-video-downloader)
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/cssnr/hls-video-downloader?logo=github&logoColor=white&label=updated)](https://github.com/cssnr/hls-video-downloader/graphs/commit-activity)
-[![GitHub Top Language](https://img.shields.io/github/languages/top/cssnr/hls-video-downloader?logo=htmx&logoColor=white)](https://github.com/cssnr/hls-video-downloader)
-[![GitHub Repo Size](https://img.shields.io/github/repo-size/cssnr/hls-video-downloader?logo=bookstack&logoColor=white&label=repo%20size)](https://github.com/cssnr/hls-video-downloader)
-[![GitHub Org Stars](https://img.shields.io/github/stars/cssnr?style=flat&logo=github&logoColor=white)](https://cssnr.github.io/)
+[![GitHub Release Version](https://img.shields.io/github/v/release/cssnr/hls-video-downloader?logo=github)](https://github.com/cssnr/hls-video-downloader/releases/latest)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cssnr_hls-video-downloader&metric=alert_status&label=quality)](https://sonarcloud.io/summary/overall?id=cssnr_hls-video-downloader)
+[![Workflow Build](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/build.yaml?logo=norton&logoColor=white&label=build)](https://github.com/cssnr/hls-video-downloader/actions/workflows/build.yaml)
+[![Workflow Lint](https://img.shields.io/github/actions/workflow/status/cssnr/hls-video-downloader/lint.yaml?logo=norton&logoColor=white&label=lint)](https://github.com/cssnr/hls-video-downloader/actions/workflows/lint.yaml)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/cssnr/hls-video-downloader?logo=listenhub&label=updated)](https://github.com/cssnr/hls-video-downloader/pulse)
+[![GitHub Repo Size](https://img.shields.io/github/repo-size/cssnr/hls-video-downloader?logo=buffer&label=repo%20size)](https://github.com/cssnr/hls-video-downloader?tab=readme-ov-file#readme)
+[![GitHub Top Language](https://img.shields.io/github/languages/top/cssnr/hls-video-downloader?logo=devbox)](https://github.com/cssnr/hls-video-downloader?tab=readme-ov-file#readme)
+[![GitHub Contributors](https://img.shields.io/github/contributors-anon/cssnr/hls-video-downloader?logo=southwestairlines)](https://github.com/cssnr/hls-video-downloader/graphs/contributors)
+[![GitHub Issues](https://img.shields.io/github/issues/cssnr/hls-video-downloader?logo=codeforces&logoColor=white)](https://github.com/cssnr/hls-video-downloader/issues)
+[![GitHub Discussions](https://img.shields.io/github/discussions/cssnr/hls-video-downloader?logo=theconversation)](https://github.com/cssnr/hls-video-downloader/discussions)
+[![GitHub Forks](https://img.shields.io/github/forks/cssnr/hls-video-downloader?style=flat&logo=forgejo&logoColor=white)](https://github.com/cssnr/hls-video-downloader/forks)
+[![GitHub Repo Stars](https://img.shields.io/github/stars/cssnr/hls-video-downloader?style=flat&logo=gleam&logoColor=white)](https://github.com/cssnr/hls-video-downloader/stargazers)
+[![GitHub Org Stars](https://img.shields.io/github/stars/cssnr?style=flat&logo=apachespark&logoColor=white&label=org%20stars)](https://cssnr.github.io/)
 [![Discord](https://img.shields.io/discord/899171661457293343?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/wXy6m2X8wY)
-[![Support](https://img.shields.io/badge/Ko--fi-579fbf?logo=kofi&label=Support)](https://ko-fi.com/cssnr)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-72a5f2?logo=kofi&label=support)](https://ko-fi.com/cssnr)
 
 # HLS Video Downloader
 
@@ -21,12 +26,12 @@ This Web Extension is a Work in Progress, may contain bugs or not work as expect
 
 - [Install](#Install)
 - [Features](#Features)
-    - [Upcoming Features](#Upcoming-Features)
-    - [Known Issues](#Known-Issues)
+  - [Upcoming Features](#Upcoming-Features)
+  - [Known Issues](#Known-Issues)
 - [Configuration](#Configuration)
 - [Support](#Support)
 - [Development](#Development)
-    - [Building](#Building)
+  - [Building](#Building)
 - [Contributing](#Contributing)
 
 ## Install
@@ -45,8 +50,8 @@ This Web Extension is a Work in Progress, may contain bugs or not work as expect
 All **Chromium** Based Browsers can install the extension from the
 [Chrome Web Store](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo).
 
-> [!WARNING]
-> This web extension requires a client app to use native FFmpeg.  
+> [!NOTE]  
+> This web extension requires the client app to use native FFmpeg.  
 > Source: https://github.com/cssnr/hls-downloader-client
 >
 > [![GitHub Downloads](https://img.shields.io/github/downloads/cssnr/hls-downloader-client/total?logo=github)](https://github.com/cssnr/hls-downloader-client/releases/latest)
@@ -55,6 +60,10 @@ All **Chromium** Based Browsers can install the extension from the
 > - Windows: [install-win.exe](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-win.exe)
 > - Linux: [install-linux.deb](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-linux.deb)
 > - macOS: [install-macos.pkg](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-macos.pkg)
+
+> [!IMPORTANT]  
+> The Client is being rewritten in Go.  
+> https://github.com/smashedr/hls-downloader-go
 
 ## Features
 
@@ -90,19 +99,20 @@ To open the options, click on the icon (from above) then click `Open Options`.
 
 ## Support
 
-For help using the web extension, utilize any these resources:
-
-- Q&A Discussion: https://github.com/cssnr/hls-video-downloader/discussions/categories/q-a
-- Request a Feature: https://github.com/cssnr/hls-video-downloader/discussions/categories/feature-requests
-
-If you are experiencing an issue/bug or getting unexpected results, use:
-
-- Report an Issue: https://github.com/cssnr/hls-video-downloader/issues
-- Chat with us on Discord: https://discord.gg/wXy6m2X8wY
-- Provide General Feedback: https://cssnr.github.io/feedback
-
 Logs can be found inspecting the page (Ctrl+Shift+I), clicking on the Console, and;
 Firefox: toggling Debug logs, Chrome: toggling Verbose from levels dropdown.
+
+If you run into any issues or need help getting started, please do one of the following:
+
+- Report an Issue: <https://github.com/cssnr/hls-video-downloader/issues>
+- Q&A Discussion: <https://github.com/cssnr/hls-video-downloader/discussions/categories/q-a>
+- Request a Feature: <https://github.com/cssnr/hls-video-downloader/issues/new?template=1-feature.yaml>
+- Chat with us on Discord: <https://discord.gg/wXy6m2X8wY>
+
+[![Features](https://img.shields.io/badge/features-brightgreen?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/cssnr/hls-video-downloader/issues/new?template=1-feature.yaml)
+[![Issues](https://img.shields.io/badge/issues-red?style=for-the-badge&logo=southwestairlines&logoColor=white)](https://github.com/cssnr/hls-video-downloader/issues)
+[![Discussions](https://img.shields.io/badge/discussions-blue?style=for-the-badge&logo=livechat&logoColor=white)](https://github.com/cssnr/hls-video-downloader/discussions)
+[![Discord](https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/wXy6m2X8wY)
 
 To support this project, see the [Contributing](#Contributing) section at the bottom.
 
@@ -186,7 +196,7 @@ You may also use an Unbranded Build: [https://wiki.mozilla.org/Add-ons/Extension
 Please consider making a donation to support the development of this project
 and [additional](https://cssnr.com/) open source projects.
 
-[![Support](https://img.shields.io/badge/Ko--fi-579fbf?style=for-the-badge&logo=kofi&label=Support)](https://ko-fi.com/cssnr)
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/cssnr)
 
 Additionally, you can give a 5-star rating
 on [Google](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo)
@@ -207,3 +217,11 @@ Other Web Extensions I have created and published:
 - [Text Formatter](https://github.com/cssnr/text-formatter?tab=readme-ov-file#readme)
 
 For a full list of current projects visit: [https://cssnr.github.io/](https://cssnr.github.io/)
+
+<a href="https://github.com/cssnr/hls-video-downloader/stargazers">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=cssnr/hls-video-downloader&type=date&legend=bottom-right&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=cssnr/hls-video-downloader&type=date&legend=bottom-right" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=cssnr/hls-video-downloader&type=date&legend=bottom-right" />
+ </picture>
+</a>
