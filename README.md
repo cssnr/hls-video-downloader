@@ -51,7 +51,7 @@ All **Chromium** Based Browsers can install the extension from the
 [Chrome Web Store](https://chromewebstore.google.com/detail/hls-video-downloader/mpmiiaolodhanoalpjncddpmnkbjicbo).
 
 > [!NOTE]  
-> This web extension requires a client app to use native FFmpeg.  
+> This web extension requires the client app to use native FFmpeg.  
 > Source: https://github.com/cssnr/hls-downloader-client
 >
 > [![GitHub Downloads](https://img.shields.io/github/downloads/cssnr/hls-downloader-client/total?logo=github)](https://github.com/cssnr/hls-downloader-client/releases/latest)
@@ -62,7 +62,7 @@ All **Chromium** Based Browsers can install the extension from the
 > - macOS: [install-macos.pkg](https://github.com/cssnr/hls-downloader-client/releases/latest/download/install-macos.pkg)
 
 > [!IMPORTANT]  
-> The Client is being rewritten in Go.
+> The Client is being rewritten in Go.  
 > https://github.com/smashedr/hls-downloader-go
 
 ## Features

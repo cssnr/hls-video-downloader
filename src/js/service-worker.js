@@ -213,7 +213,10 @@ async function notificationsClicked(notificationId) {
     chrome.notifications.clear(notificationId)
     const uuidRegex =
         /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    if (!isNaN(parseInt(notificationId)) || uuidRegex.test(notificationId)) {
+    if (
+        !Number.isNaN(Number.parseInt(notificationId)) ||
+        uuidRegex.test(notificationId)
+    ) {
         return console.log('normal notification')
     }
     const message = { open: notificationId }
