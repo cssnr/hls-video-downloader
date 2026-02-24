@@ -185,7 +185,10 @@ export async function updateManifest() {
 export async function updateBrowser() {
     let selector = '.chrome'
     // noinspection JSUnresolvedReference
-    if (typeof browser?.runtime?.getBrowserInfo === 'function') {
+    if (
+        typeof browser !== 'undefined' &&
+        typeof browser?.runtime?.getBrowserInfo === 'function'
+    ) {
         selector = '.firefox'
     }
     console.debug('updateBrowser:', selector)
@@ -285,6 +288,7 @@ export async function onRemoved(permissions) {
 
 /**
  * Open Popup Click Callback
+ * NOTE: Requires Chrome>=127
  * @function openPopup
  * @param {Event} [event]
  */

@@ -20,9 +20,8 @@
 
 # HLS Video Downloader
 
-Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos using Native FFmpeg.
-
-This Web Extension is a Work in Progress, may contain bugs or not work as expected.
+<a title="HLS Video Downloader" href="https://github.com/cssnr/hls-video-downloader?tab=readme-ov-file#readme" target="_blank">
+<img alt="HLS Video Downloader" align="right" width="128" height="auto" src="https://raw.githubusercontent.com/cssnr/hls-video-downloader/refs/heads/master/src/images/logo128.png"></a>
 
 - [Install](#Install)
 - [Features](#Features)
@@ -33,6 +32,10 @@ This Web Extension is a Work in Progress, may contain bugs or not work as expect
 - [Development](#Development)
   - [Building](#Building)
 - [Contributing](#Contributing)
+
+Modern Chrome Web Extension and Firefox Browser Addon to Download HLS Videos using Native FFmpeg.
+
+This Web Extension is a Work in Progress, may contain bugs or not work as expected.
 
 ## Install
 

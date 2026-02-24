@@ -145,7 +145,10 @@ async function onInstalled(details) {
 async function onStartup() {
     console.log('onStartup')
     // noinspection JSUnresolvedReference
-    if (typeof browser?.runtime?.getBrowserInfo === 'function') {
+    if (
+        typeof browser !== 'undefined' &&
+        typeof browser?.runtime?.getBrowserInfo === 'function'
+    ) {
         const { options } = await chrome.storage.sync.get(['options'])
         console.debug('options:', options)
         console.log('Firefox CTX Menu Workaround')
