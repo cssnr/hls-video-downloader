@@ -1,4 +1,4 @@
-// JS Bootstrap Theme Switcher - Sonar Retarded
+// JS Bootstrap Theme Switcher
 
 ;(() => {
     const getStoredTheme = () => localStorage.getItem('theme')
