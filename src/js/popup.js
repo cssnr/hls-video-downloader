@@ -88,7 +88,6 @@ async function initPopup() {
 
 async function processDownloads(downloads) {
     console.log('processDownloads:', downloads)
-    document.getElementById('more-options')?.remove() // this is a space filler
     downloadsWrapper.classList.remove('d-none')
     for (const link of downloads) {
         const url = new URL(link)
@@ -111,7 +110,6 @@ async function processURLs(urls, downloads) {
     if (!urls?.length) {
         return console.debug('no urls')
     }
-    document.getElementById('more-options')?.remove() // this is a space filler
     mediaWrapper.classList.add('border-success')
 
     // const { downloaded } = await chrome.storage.local.get(['downloaded'])
