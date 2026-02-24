@@ -9,3 +9,7 @@ body {
     max-height: 440px;
     overflow-y: auto;
 }
+
+#media-wrapper {
+    min-height: 40px;
+}

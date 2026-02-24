@@ -1,8 +1,6 @@
 // JS for permissions.html
-// TODO: Decommission permissions after Firefox updates
-//       Release on July 9 and ESR on October 1
 
-import { checkPerms, grantPerms, linkClick, onRemoved } from './export.js'
+import { checkPerms, grantPerms, linkClick, onRemoved, updateManifest } from './export.js'
 
 chrome.permissions.onAdded.addListener(onAdded)
 chrome.permissions.onRemoved.addListener(onRemoved)
@@ -21,7 +19,11 @@ document
  */
 async function domContentLoaded() {
     console.debug('domContentLoaded')
-    await checkPerms()
+    // noinspection ES6MissingAwait
+    updateManifest()
+    checkPerms().then((hasPerms) => {
+        if (!hasPerms) console.log('%cMissing Host Permissions', 'color: Red')
+    })
 }
 
 /**
@@ -32,7 +34,9 @@ async function onAdded(permissions) {
     console.debug('onAdded', permissions)
     const hasPerms = await checkPerms()
     if (hasPerms) {
-        await chrome.runtime.openOptionsPage()
+        if (document.hasFocus()) {
+            await chrome.runtime.openOptionsPage()
+        }
         window.close()
     }
 }

@@ -6,7 +6,7 @@ export const nativeApp = 'org.cssnr.hls.downloader'
 /**
  * Save Options Callback
  * @function saveOptions
- * @param {InputEvent} event
+ * @param {UIEvent} event
  */
 export async function saveOptions(event) {
     console.debug('saveOptions:', event)
@@ -25,36 +25,53 @@ export async function saveOptions(event) {
     } else if (event.target.type === 'checkbox') {
         value = event.target.checked
     } else if (event.target.type === 'number') {
-        value = event.target.value.toString()
+        const number = Number.parseFloat(event.target.value)
+        let min = Number.parseFloat(event.target.min)
+        let max = Number.parseFloat(event.target.max)
+        if (!Number.isNaN(number) && number >= min && number <= max) {
+            event.target.value = number.toString()
+            value = number
+        } else {
+            event.target.value = options[event.target.id]
+            return
+        }
     } else {
         value = event.target.value
     }
-    if (value !== undefined) {
-        options[key] = value
-        console.info(`Set: ${key}:`, value)
-        await chrome.storage.sync.set({ options })
+    if (value === undefined) {
+        console.warn(`No Value for key: ${key}`)
     } else {
-        console.warn('No value for key:', key)
+        options[key] = value
+        console.log(`Set %c${key}:`, 'color: Khaki', value)
+        await chrome.storage.sync.set({ options })
     }
 }
 
 /**
- * Update Options based on type
+ * Update Options
  * @function initOptions
  * @param {Object} options
  */
 export function updateOptions(options) {
     console.debug('updateOptions:', options)
     for (let [key, value] of Object.entries(options)) {
-        if (typeof value === 'undefined') {
+        if (value === undefined) {
             console.warn('Value undefined for key:', key)
             continue
         }
+        // Option Key should be `radioXXX` and values should be the option IDs
+        if (key.startsWith('radio')) {
+            key = value //NOSONAR
+            value = true //NOSONAR
+        }
+        // console.debug(`${key}: ${value}`)
         const el = document.getElementById(key)
         if (!el) {
             continue
         }
-        if (el.type === 'checkbox') {
+        if (el.tagName !== 'INPUT') {
+            el.textContent = value.toString()
+        } else if (typeof value === 'boolean') {
             el.checked = value
         } else {
             el.value = value
@@ -65,6 +82,13 @@ export function updateOptions(options) {
     }
 }
 
+/**
+ * Hide or Show Element with JQuery
+ * @function hideShowElement
+ * @param {String} selector
+ * @param {Boolean} [show]
+ * @param {String} [speed]
+ */
 function hideShowElement(selector, show, speed = 'fast') {
     const element = $(`${selector}`)
     // console.debug('hideShowElement:', show, element)
@@ -77,36 +101,28 @@ function hideShowElement(selector, show, speed = 'fast') {
 
 /**
  * Link Click Callback
- * Firefox requires a call to window.close()
+ * Note: Firefox popup requires a call to window.close()
  * @function linkClick
  * @param {MouseEvent} event
- * @param {Boolean} close
+ * @param {Boolean} [close]
  */
 export async function linkClick(event, close = false) {
-    console.debug('linkClick:', event)
-    console.debug('close:', close)
-    event.preventDefault()
-    const anchor = event.target.closest('a')
-    if (anchor.dataset.link === 'no') {
-        return console.debug('return on dataset.link: no')
-    }
-    const href = anchor.getAttribute('href').replace(/^\.+/g, '')
+    console.debug('linkClick:', close, event)
+    const target = event.currentTarget
+    const href = target.getAttribute('href').replace(/^\.+/, '')
     console.debug('href:', href)
-    if (href.startsWith('#')) {
-        return console.debug('return on anchor link')
-    }
     let url
+    if (href.startsWith('#')) {
+        console.debug('return on anchor link')
+        return
+    }
+    event.preventDefault()
     if (href.endsWith('html/options.html')) {
         await chrome.runtime.openOptionsPage()
         if (close) window.close()
         return
     } else if (href.endsWith('html/panel.html')) {
-        await chrome.windows.create({
-            type: 'panel',
-            url: '/html/panel.html',
-            width: 720,
-            height: 480,
-        })
+        await showPanel()
         if (close) window.close()
         return
     } else if (href.startsWith('http')) {
@@ -124,22 +140,24 @@ export async function linkClick(event, close = false) {
  * @function activateOrOpen
  * @param {String} url
  * @param {Boolean} [open]
- * @return {Promise<*|Boolean>}
+ * @return {Promise<chrome.tabs.Tab>}
  */
 export async function activateOrOpen(url, open = true) {
-    console.debug('activateOrOpen:', url)
+    console.debug('activateOrOpen:', url, open)
+    // Note: To Get Tab from Tabs (requires host permissions or tabs)
     const tabs = await chrome.tabs.query({ currentWindow: true })
-    // console.debug('tabs:', tabs)
+    console.debug('tabs:', tabs)
     for (const tab of tabs) {
         if (tab.url === url) {
-            console.debug('tab:', tab)
-            await chrome.tabs.update(tab.id, { active: true })
-            return
+            console.debug('%cTab found, activating:', 'color: Lime', tab)
+            return await chrome.tabs.update(tab.id, { active: true })
         }
     }
     if (open) {
-        await chrome.tabs.create({ active: true, url })
+        console.debug('%cTab not found, opening url:', 'color: Yellow', url)
+        return await chrome.tabs.create({ active: true, url })
     }
+    console.warn('tab not found and open not set!')
 }
 
 /**
@@ -148,6 +166,7 @@ export async function activateOrOpen(url, open = true) {
  */
 export async function updateManifest() {
     const manifest = chrome.runtime.getManifest()
+    console.debug('updateManifest:', manifest)
     document.querySelectorAll('.version').forEach((el) => {
         el.textContent = manifest.version
     })
@@ -160,9 +179,23 @@ export async function updateManifest() {
 }
 
 /**
+ * @function updateBrowser
+ * @return {Promise<void>}
+ */
+export async function updateBrowser() {
+    let selector = '.chrome'
+    // noinspection JSUnresolvedReference
+    if (typeof browser?.runtime?.getBrowserInfo === 'function') {
+        selector = '.firefox'
+    }
+    console.debug('updateBrowser:', selector)
+    document.querySelectorAll(selector).forEach((el) => el.classList.remove('d-none'))
+}
+
+/**
  * Check Host Permissions
  * @function checkPerms
- * @return {Promise<*|Boolean>}
+ * @return {Promise<Boolean>}
  */
 export async function checkPerms() {
     const hasPerms = await chrome.permissions.contains({
@@ -203,7 +236,7 @@ export async function grantPerms(event, close = false) {
 /**
  * Request Host Permissions
  * @function requestPerms
- * @return {Promise<*|chrome.permissions.request>}
+ * @return {Promise<Boolean>}
  */
 export async function requestPerms() {
     return await chrome.permissions.request({
@@ -213,8 +246,7 @@ export async function requestPerms() {
 
 /**
  * Revoke Permissions Click Callback
- * NOTE: For many reasons Chrome will determine host_perms are required and
- *       will ask for them at install time and not allow them to be revoked
+ * Note: This method does not work on Chrome if permissions are required.
  * @function revokePerms
  * @param {MouseEvent} event
  */
@@ -229,7 +261,7 @@ export async function revokePerms(event) {
         await checkPerms()
     } catch (e) {
         console.log(e)
-        showToast(e.message, 'danger')
+        showToast(e.toString(), 'danger')
     }
 }
 
@@ -252,6 +284,67 @@ export async function onRemoved(permissions) {
 }
 
 /**
+ * Open Popup Click Callback
+ * @function openPopup
+ * @param {Event} [event]
+ */
+export async function openPopup(event) {
+    console.debug('openPopup:', event)
+    event?.preventDefault()
+    // Note: This fails if popup is already open (ex. double clicks)
+    try {
+        await chrome.action.openPopup()
+    } catch (e) {
+        console.debug(e)
+    }
+}
+
+/**
+ * Open Extension Panel
+ * @function openExtPanel
+ * @param {String} [url]
+ * @param {Number} [width]
+ * @param {Number} [height]
+ * @param {String} [type]
+ * @return {Promise<chrome.windows.Window|undefined>}
+ */
+export async function showPanel(
+    url = '/html/panel.html',
+    width = 720,
+    height = 480,
+    type = 'panel',
+) {
+    console.debug(`openExtPanel: ${url}`, width, height)
+    if (!chrome.windows) {
+        console.log('Browser does not support: chrome.windows')
+        showToast('Browser does not support windows', 'danger')
+        return
+    }
+    const { lastPanelID } = await chrome.storage.local.get(['lastPanelID'])
+    console.debug('lastPanelID:', lastPanelID)
+
+    try {
+        const window = await chrome.windows.get(lastPanelID)
+        if (window) {
+            console.debug(`%c Window found: ${window.id}`, 'color: Lime')
+            return await chrome.windows.update(lastPanelID, {
+                focused: true,
+            })
+        }
+    } catch (e) {
+        console.log(e)
+    }
+
+    // noinspection JSCheckFunctionSignatures
+    const window = await chrome.windows.create({ type, url, width, height })
+    // NOTE: Code after windows.create is not executed on the first pop-out...
+    console.debug(`%c Created new window: ${window.id}`, 'color: Yellow')
+    // noinspection ES6MissingAwait
+    // chrome.storage.local.set({ lastPanelID: window.id })
+    return window
+}
+
+/**
  * Show Bootstrap Toast
  * @function showToast
  * @param {String} message
@@ -265,7 +358,7 @@ export function showToast(message, type = 'success') {
         return console.warn('Missing clone or container:', clone, container)
     }
     const element = clone.cloneNode(true)
-    element.querySelector('.toast-body').innerHTML = message
+    element.querySelector('.toast-body').textContent = message
     element.classList.add(`text-bg-${type}`)
     container.appendChild(element)
     const toast = new bootstrap.Toast(element)
