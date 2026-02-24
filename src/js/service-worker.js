@@ -5,7 +5,9 @@ import {
     checkPerms,
     githubURL,
     nativeApp,
+    openPopup,
     sendNotification,
+    showPanel,
 } from './export.js'
 
 chrome.runtime.onInstalled.addListener(onInstalled)
@@ -19,6 +21,77 @@ chrome.webRequest.onCompleted.addListener(onCompleted, {
 })
 
 const activeDownloads = []
+
+/**
+ * @function onCompleted
+ * @param {Object} details
+ */
+async function onCompleted(details) {
+    // console.log('onCompleted:', details)
+    if (
+        details.documentUrl?.startsWith('moz-extension') ||
+        details.initiator?.startsWith('chrome-extension')
+    ) {
+        return
+    }
+    const url = new URL(details.url)
+    // console.log('details.url:', url)
+    if (url.pathname.endsWith('.m3u8')) {
+        console.debug('Process m3u8:', url)
+        try {
+            // console.log('checking request:', details)
+            const response = await fetch(details.url)
+            const text = await response.text()
+            // console.debug('text:', text)
+            if (text.startsWith('#EXTM3U')) {
+                const message = { url: details.url }
+                await chrome.tabs.sendMessage(details.tabId, message)
+                // await processPlaylist(details, text)
+
+                // const regex = /^#EXTINF:/m
+                // if (!regex.test(text)) {
+                //     await processPlaylist(details, text)
+                // } else {
+                //     console.debug('contains #EXTINF')
+                // }
+            } else {
+                console.debug('not #EXTM3U')
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    // } else if (details.url.endsWith('.mp4')) {
+    //     console.debug('mp4:', details.url)
+    // }
+}
+
+// /**
+//  * @function processPlaylist
+//  * @param {Object} details
+//  * @param {String} text
+//  */
+// async function processPlaylist(details, text) {
+//     console.log('playlist:', details)
+//     const lines = text.split('\n')
+//     // console.debug('lines:', lines)
+//     const urls = []
+//     for (const line of lines) {
+//         if (!line || line.startsWith('#') || !line.endsWith('.m3u8')) {
+//             continue
+//         }
+//         const url = new URL(line, details.url)
+//         urls.push(url.href)
+//         // console.debug('url:', url.href)
+//     }
+//     // console.debug('urls:', urls)
+//     const message = {
+//         urls: urls,
+//         url: details.url,
+//     }
+//     console.log('sendMessage:', message)
+//     await chrome.tabs.sendMessage(details.tabId, message)
+// }
 
 /**
  * On Installed Callback
@@ -72,10 +145,10 @@ async function onInstalled(details) {
 async function onStartup() {
     console.log('onStartup')
     // noinspection JSUnresolvedReference
-    if (typeof browser !== 'undefined') {
-        console.log('Firefox Startup Workarounds')
+    if (typeof browser?.runtime?.getBrowserInfo === 'function') {
         const { options } = await chrome.storage.sync.get(['options'])
         console.debug('options:', options)
+        console.log('Firefox CTX Menu Workaround')
         if (options.contextMenu) {
             createContextMenus()
         }
@@ -92,22 +165,19 @@ function setUninstallURL() {
  * On Clicked Callback
  * @function onClicked
  * @param {OnClickData} ctx
- * @param {chrome.tabs.Tab} tab
+ * @param {Tab} tab
  */
 async function onClicked(ctx, tab) {
     console.debug('onClicked:', ctx, tab)
-    if (ctx.menuItemId === 'openOptions') {
+    if (ctx.menuItemId === 'openPopup') {
+        await openPopup()
+    } else if (ctx.menuItemId === 'openOptions') {
         await chrome.runtime.openOptionsPage()
     } else if (ctx.menuItemId === 'openHome') {
         const url = chrome.runtime.getURL('/html/home.html')
         await activateOrOpen(url)
     } else if (ctx.menuItemId === 'showPanel') {
-        await chrome.windows.create({
-            type: 'panel',
-            url: '/html/panel.html',
-            width: 720,
-            height: 480,
-        })
+        await showPanel()
     } else {
         console.error(`Unknown ctx.menuItemId: ${ctx.menuItemId}`)
     }
@@ -234,35 +304,43 @@ async function notificationsClicked(notificationId) {
  * @function createContextMenus
  */
 function createContextMenus() {
+    if (!chrome.contextMenus) {
+        return console.debug('Skipping: chrome.contextMenus')
+    }
     console.debug('createContextMenus')
     chrome.contextMenus.removeAll()
+    /** @type {Array[chrome.contextMenus.ContextType[], String, String]} */
     const contexts = [
-        // [['all'], 'openHome', 'normal', 'Home Page'],
-        // [['all'], 'showPanel', 'normal', 'Extension Panel'],
-        // 'all',
-        [['all'], 'openOptions', 'normal', 'Open Options'],
+        // [['all'], 'showPanel', 'Open Panel'],
+        // [['all'], 'separator'],
+        [['all'], 'openPopup', 'HLS Downloader'],
     ]
-    contexts.forEach((context) => {
-        addContext(context)
-    })
+    contexts.forEach(addContext)
 }
 
 /**
- * Add Context from Array or Separator from String
+ * Add Context from Array
  * @function addContext
- * @param {Array,String} context
+ * @param {[chrome.contextMenus.ContextType[],String,String,chrome.contextMenus.ContextType?]} context
  */
 function addContext(context) {
-    if (typeof context === 'string') {
-        const id = Math.random().toString().substring(2, 7)
-        context = [[context], id, 'separator', 'separator']
+    console.debug('addContext:', context)
+    try {
+        if (context[1] === 'separator') {
+            context[1] = Math.random().toString().substring(2, 7)
+            context.push('separator', 'separator')
+        }
+        // console.debug('menus.create:', context)
+        // noinspection JSCheckFunctionSignatures
+        chrome.contextMenus.create({
+            contexts: context[0],
+            id: context[1],
+            title: context[2],
+            type: context[3] || 'normal',
+        })
+    } catch (e) {
+        console.log(`%cError Adding Context: ${e.message}`, 'color: Red', e)
     }
-    chrome.contextMenus.create({
-        contexts: context[0],
-        id: context[1],
-        type: context[2] || 'normal',
-        title: context[3],
-    })
 }
 
 /**
@@ -295,74 +373,3 @@ async function setDefaultOptions(defaultOptions) {
     }
     return options
 }
-
-/**
- * @function onCompleted
- * @param {Object} details
- */
-async function onCompleted(details) {
-    // console.log('onCompleted:', details)
-    if (
-        details.documentUrl?.startsWith('moz-extension') ||
-        details.initiator?.startsWith('chrome-extension')
-    ) {
-        return
-    }
-    const url = new URL(details.url)
-    // console.log('details.url:', url)
-    if (url.pathname.endsWith('.m3u8')) {
-        console.debug('Process m3u8:', url)
-        try {
-            // console.log('checking request:', details)
-            const response = await fetch(details.url)
-            const text = await response.text()
-            // console.debug('text:', text)
-            if (text.startsWith('#EXTM3U')) {
-                const message = { url: details.url }
-                await chrome.tabs.sendMessage(details.tabId, message)
-                // await processPlaylist(details, text)
-
-                // const regex = /^#EXTINF:/m
-                // if (!regex.test(text)) {
-                //     await processPlaylist(details, text)
-                // } else {
-                //     console.debug('contains #EXTINF')
-                // }
-            } else {
-                console.debug('not #EXTM3U')
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-    // } else if (details.url.endsWith('.mp4')) {
-    //     console.debug('mp4:', details.url)
-    // }
-}
-
-// /**
-//  * @function processPlaylist
-//  * @param {Object} details
-//  * @param {String} text
-//  */
-// async function processPlaylist(details, text) {
-//     console.log('playlist:', details)
-//     const lines = text.split('\n')
-//     // console.debug('lines:', lines)
-//     const urls = []
-//     for (const line of lines) {
-//         if (!line || line.startsWith('#') || !line.endsWith('.m3u8')) {
-//             continue
-//         }
-//         const url = new URL(line, details.url)
-//         urls.push(url.href)
-//         // console.debug('url:', url.href)
-//     }
-//     // console.debug('urls:', urls)
-//     const message = {
-//         urls: urls,
-//         url: details.url,
-//     }
-//     console.log('sendMessage:', message)
-//     await chrome.tabs.sendMessage(details.tabId, message)
-// }

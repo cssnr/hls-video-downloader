@@ -13,6 +13,7 @@ import {
     testNativeMessage,
     updateManifest,
     updateOptions,
+    updateBrowser,
 } from './export.js'
 
 chrome.storage.onChanged.addListener(onChanged)
@@ -46,6 +47,11 @@ document
     .querySelectorAll('[data-bs-toggle="tooltip"]')
     .forEach((el) => new bootstrap.Tooltip(el))
 
+document.getElementById('chrome-shortcuts').addEventListener('click', () => {
+    // noinspection JSIgnoredPromiseFromCall
+    chrome.tabs.update({ url: 'chrome://extensions/shortcuts' })
+})
+
 /**
  * Initialize Options
  * @function initOptions
@@ -55,9 +61,14 @@ async function initOptions() {
     // noinspection ES6MissingAwait
     updateManifest()
     // noinspection ES6MissingAwait
-    setShortcuts()
+    updateBrowser()
     // noinspection ES6MissingAwait
-    checkPerms()
+    setShortcuts()
+
+    checkPerms().then((hasPerms) => {
+        if (!hasPerms) console.log('%cMissing Host Permissions', 'color: Red')
+    })
+
     chrome.storage.sync.get(['options']).then((items) => {
         console.debug('options:', items.options)
         updateOptions(items.options)
@@ -84,24 +95,46 @@ function onChanged(changes, namespace) {
 /**
  * Set Keyboard Shortcuts
  * @function setShortcuts
- * @param {String} selector
+ * @param {String} [selector]
  */
 async function setShortcuts(selector = '#keyboard-shortcuts') {
+    if (!chrome.commands) {
+        return console.debug('Skipping: chrome.commands')
+    }
     const table = document.querySelector(selector)
+    if (!table) {
+        return console.warn(`${selector} table not found`)
+    }
+    table.classList.remove('d-none')
     const tbody = table.querySelector('tbody')
     const source = table.querySelector('tfoot > tr').cloneNode(true)
     const commands = await chrome.commands.getAll()
     for (const command of commands) {
-        // console.debug('command:', command)
-        const row = source.cloneNode(true)
-        // TODO: Chrome does not parse the description for _execute_action in manifest.json
-        let description = command.description
-        if (!description && command.name === '_execute_action') {
-            description = 'Show Popup'
+        try {
+            // console.debug('command:', command)
+            const row = source.cloneNode(true)
+            let description = command.description
+            // Note: Chrome does not parse the description for _execute_action in manifest.json
+            if (!description && command.name === '_execute_action') {
+                description = 'Show Popup Action' // NOTE: Also defined in: manifest.json
+            }
+            row.querySelector('.description').textContent = description
+            row.querySelector('kbd').textContent = command.shortcut || 'Not Set'
+            tbody.appendChild(row)
+        } catch (e) {
+            console.warn('Error adding command:', command, e)
         }
-        row.querySelector('.description').textContent = description
-        row.querySelector('kbd').textContent = command.shortcut || 'Not Set'
+    }
+    // Toolbar Pinned Indication
+    try {
+        const userSettings = await chrome.action.getUserSettings()
+        const row = source.cloneNode(true)
+        row.querySelector('i').className = 'fa-solid fa-puzzle-piece me-1'
+        row.querySelector('.description').textContent = 'Toolbar Icon Pinned'
+        row.querySelector('kbd').textContent = userSettings.isOnToolbar ? 'Yes' : 'No'
         tbody.appendChild(row)
+    } catch (e) {
+        console.log('Error adding pinned setting:', e)
     }
 }
 
